@@ -8,19 +8,21 @@
  */
 int main(int argc, char **argv, char **envp)
 {
-	char *line, *prompt, hostname[100];
+	char *line, *prompt, hostname[100], *copy, *copy2;
 	(void) argc;
 	(void) argv;
 	prompt = "\033[34;1m";
 	size_t cch;
 	line = malloc(1024);
-	get_env("USER", envp, &prompt);
+	copy = malloc(200);
+	copy2 = malloc(200);
+	prompt = str_concat(prompt, get_env("USER", envp, &copy));
 	gethostname(hostname, 100);
 /*	printf("host: %s\n", hostname);*/
 	prompt = str_concat(prompt, "@");
 	prompt = str_concat(prompt, hostname);
 	prompt = str_concat(prompt, "\033[0m:\033[36;1m~");
-	get_env("PWD", envp, &prompt);
+	prompt = str_concat(prompt, string_rem(get_env("HOME", envp, &copy2),get_env("PWD", envp, &copy)));
 	prompt = str_concat(prompt, "\033[0m");
 
 	while (1)
