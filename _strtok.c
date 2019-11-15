@@ -10,8 +10,10 @@ line_t *_strtok(char *line, line_t **list, char *token)
 	char buff[100];
 	int cont = 0;
 
+	printf("getting args\n");
 	while (*line != '\0')
 	{
+		printf("%s\n", line);
 		if (*line == *token || *(line + 1) == '\0')
 		{
 

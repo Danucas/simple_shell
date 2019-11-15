@@ -35,6 +35,7 @@ int main(int argc, char **argv, char **envp)
 		cch = _getline(&line);
 		if (cch > 1)
 		{
+			printf("init strtok");
 			_strtok(line, &list, " ");
 			printl(list);
 			printf("%s", line);
