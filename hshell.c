@@ -35,6 +35,7 @@ int main(int argc, char **argv, char **envp)
 		{
 			printf("%s", line);
 		}
+		fflush(stdin);
 	}
 	return (0);
 }
