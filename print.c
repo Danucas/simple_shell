@@ -13,3 +13,13 @@ void printl(line_t *list)
 		l = l->next;
 	}
 }
+void printargs(char **args)
+{
+	int counter = 0;
+
+	while (args[counter] != NULL)
+	{
+		printf("%s\n", args[counter]);
+		counter++;
+	}
+}

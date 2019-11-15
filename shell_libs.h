@@ -14,6 +14,7 @@ typedef struct Strings
 } line_t;
 
 void printl(line_t *list);
+void printargs(char **args);
 int string_len(char *s);
 int string_cmp(char *s1, char *s2);
 char *str_concat(char *s1, char *s2);
@@ -22,7 +23,8 @@ size_t _getline(char **line);
 char * get_env(char *var, char **envp, char **str);
 char *string_rem(char *s1, char *s2);
 void check_paths(char *str);
-void str_cpy(char *from, char *to);
-line_t *_strtok(char *line, line_t **list, char *token);
+char *str_cpy(char *from);
+char **_strtok(char *line, char *token);
+void free_args(char **args);
 
 #endif

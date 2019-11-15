@@ -11,8 +11,7 @@ int main(int argc, char **argv, char **envp)
 	char *line, *prompt, hostname[100], *copy, *copy2;
 	(void) argc;
 	(void) argv;
-	line_t *list;
-	list = NULL;
+	char **list;
 	prompt = "\033[34;1m";
 	size_t cch;
 	line = malloc(1024);
@@ -35,8 +34,9 @@ int main(int argc, char **argv, char **envp)
 		cch = _getline(&line);
 		if (cch > 1)
 		{
-			_strtok(line, &list, " ");
-			printl(list);
+			list = _strtok(line, " ");
+			printargs(list);
+			free_args(list);
 		}
 		fflush(stdin);
 	}

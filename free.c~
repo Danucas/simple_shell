@@ -1,0 +1,16 @@
+#include "shell_libs.h"
+/**
+ *
+ *
+ */
+
+void freeargs(char **args)
+{
+	int counter = 0;
+	while (args[counter] != NULL)
+	{
+		free(args[counter]);
+		counter++;
+	}
+	free(args);
+}

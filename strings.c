@@ -86,13 +86,18 @@ int string_cmp(char *s1, char *s2)
 	return (count);
 }
 
-void str_cpy(char *from, char *to)
+char *str_cpy(char *from)
 {
 	int cont = 0;
+	int len = string_len(from);
+	char *new_str;
+	new_str = malloc(sizeof(char) * (len + 1));
+
 	while (*from != '\0')
 	{
-		to[cont] = *from;
+		new_str[cont] = *from;
 		from++;
 		cont++;
 	}
+	return (new_str);
 }
