@@ -85,3 +85,13 @@ int string_cmp(char *s1, char *s2)
 	}
 	return (count);
 }
+
+void str_cpy(char *from, char *to)
+{
+	int cont = 0;
+	while (*from != '\0')
+	{
+		to[cont] = *from;
+		from++;
+	}
+}
