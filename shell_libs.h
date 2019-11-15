@@ -13,6 +13,7 @@ typedef struct Strings
 	struct Strings *next;
 } line_t;
 
+void printl(line_t *list);
 int string_len(char *s);
 int string_cmp(char *s1, char *s2);
 char *str_concat(char *s1, char *s2);
@@ -22,5 +23,6 @@ char * get_env(char *var, char **envp, char **str);
 char *string_rem(char *s1, char *s2);
 void check_paths(char *str);
 void str_cpy(char *from, char *to);
+line_t *_strtok(char *line, line_t **list, char *token);
 
 #endif

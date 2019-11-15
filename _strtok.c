@@ -1,4 +1,5 @@
 #include "shell_libs.h"
+line_t *add_node(char *s, line_t **head);
 /**
  *_strtok - Separate a line and return a list.
  *
@@ -13,8 +14,16 @@ line_t *_strtok(char *line, line_t **list, char *token)
 	{
 		if (*line == *token || *(line + 1) == '\0')
 		{
-			buff[cont] = '\0';
+
+			if (*(line + 1) == '\0')
+			{
+				buff[cont] = *line;
+				buff[cont+1] = '\0';
+			}
+			else
+				buff[cont] = '\0';
 			add_node(buff, list);
+			cont = 0;
 		}
 		else
 		{
@@ -23,6 +32,7 @@ line_t *_strtok(char *line, line_t **list, char *token)
 		}
 		line++;
 	}
+	return (*list);
 }
 
 line_t *add_node(char *s, line_t **head)
@@ -30,7 +40,7 @@ line_t *add_node(char *s, line_t **head)
 	line_t *l = *head , * new_node;
 	int count = 0, strlen;
 	char *new_string;
-
+	(void) count;
 	strlen = string_len(s);
 	new_node = malloc(sizeof(line_t));
 	new_string = malloc(sizeof(char) * (strlen + 1));
@@ -39,7 +49,7 @@ line_t *add_node(char *s, line_t **head)
 	new_node->next = NULL;
 	if (l == NULL)
 	{
-		*head == new_node;
+		*head = new_node;
 		return (new_node);
 	}
 	else
