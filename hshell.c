@@ -24,7 +24,7 @@ int main(int argc, char **argv, char **envp)
 	prompt = str_concat(prompt, "\033[0m:\033[36;1m~");
 	prompt = str_concat(prompt, string_rem(get_env("HOME", envp, &copy2),get_env("PWD", envp, &copy)));
 	prompt = str_concat(prompt, "\033[0m");
-
+	check_paths(get_env("PATH", envp, &copy));
 	while (1)
 	{
 		printf("%s", prompt);
