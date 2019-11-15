@@ -93,5 +93,6 @@ void str_cpy(char *from, char *to)
 	{
 		to[cont] = *from;
 		from++;
+		cont++;
 	}
 }

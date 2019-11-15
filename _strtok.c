@@ -10,17 +10,16 @@ line_t *_strtok(char *line, line_t **list, char *token)
 	char buff[100];
 	int cont = 0;
 
-	printf("getting args\n");
 	while (*line != '\0')
 	{
-		printf("%s\n", line);
-		if (*line == *token || *(line + 1) == '\0')
+		if (*line == *token || *(line + 1) == '\n')
 		{
 
-			if (*(line + 1) == '\0')
+			if (*(line + 1) == '\n')
 			{
 				buff[cont] = *line;
 				buff[cont+1] = '\0';
+				
 			}
 			else
 				buff[cont] = '\0';
@@ -46,8 +45,9 @@ line_t *add_node(char *s, line_t **head)
 	strlen = string_len(s);
 	new_node = malloc(sizeof(line_t));
 	new_string = malloc(sizeof(char) * (strlen + 1));
+	
 	str_cpy(s, new_string);
-
+	new_node->arg = new_string;
 	new_node->next = NULL;
 	if (l == NULL)
 	{
