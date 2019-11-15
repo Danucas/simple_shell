@@ -1,5 +1,9 @@
 #include "shell_libs.h"
-
+/**
+ *_getchar - Get characters value.
+ *Description: Get char by char from standard input.
+ *Return: A character. -1 if fails.
+ */
 int _getchar(void)
 {
 	char buff[1];
@@ -10,7 +14,11 @@ int _getchar(void)
 	}
 	return (-1);
 }
-
+/**
+ *_getline - Obtain a lin fron the standard input.
+ *@line: Pointer wher the line its gonna be stored.
+ *Return: Number of the line's characters.
+ */
 size_t _getline(char **line)
 {
 	size_t count = 0;
@@ -18,7 +26,7 @@ size_t _getline(char **line)
 
 	while (1)
 	{
-		fflush(stdout);
+		fflush(stdout);/*In case that standard output is open.*/
 		c = _getchar();
 		(*line)[count] = c;
 		count++;

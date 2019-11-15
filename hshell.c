@@ -1,10 +1,10 @@
 #include "shell_libs.h"
 /**
  *main - shell main
- *@argc: args count
- *@argv: args
- *@envp: environment variables
- *Return: 0 if succed
+ *@argc: Args count.
+ *@argv: Args.
+ *@envp: Environment variables.
+ *Return: 0 if succed.
  */
 int main(int argc, char **argv, char **envp)
 {

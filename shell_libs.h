@@ -1,6 +1,5 @@
-#ifndef SHELL_LIBS
-#define SHELL_LIBS
-
+#ifndef _SHELL_LIBS_
+#define _SHELL_LIBS_
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <stdio.h>
