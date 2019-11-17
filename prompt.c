@@ -52,7 +52,7 @@ int prompt_loop(char **argv, char **envp)
 				exit_shell(&prompt);
 			}
 			list = _strtok(line, " ");
-			run_command(list, argv[0]);
+			run_multiprocess(list, argv[0]);
 			free_args(list);
 		}
 		fflush(stdin);
