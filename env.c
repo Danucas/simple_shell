@@ -17,7 +17,7 @@ char *get_env(char *var, char **envp, char **str)
 		te = string_cmp(var, envp[envc]);
 		if (te == var_len)
 		{
-			env_len = var_len + 1;/*Get the variable value.*/
+			env_len = var_len;/*Get the variable value.*/
 			while (envp[envc][env_len] != '\0')
 			{
 				res[counter] = envp[envc][env_len];

@@ -1,0 +1,3 @@
+#!/bin/bash
+gcc -Wall -Wextra -Werror -pedantic *.c -o concha
+./copy_to_test
