@@ -48,10 +48,11 @@ int prompt_loop(char **argv, char **envp)
 		{
 			if ((int) cch == -1)
 			{
+				printf("exiting\n");
 				exit_shell(&prompt);
 			}
 			list = _strtok(line, " ");
-			run_multiprocess(list, argv[0]);
+			run_command(list, argv[0]);
 			free_args(list);
 		}
 		fflush(stdin);
