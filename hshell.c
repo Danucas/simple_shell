@@ -14,16 +14,14 @@ int main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	char **list;
-	close(1);
-	pipstat = read(STDOUT_FILENO, &pipe, 100);
+	int pipe_fd = dup(0);
+	close(0);
+	pipstat = read(pipe_fd, &pipe, 100);
+	printf("pipstat: %d\n", pipstat);
 	if (pipstat >= 0)
 	  {
 	    pipe[pipstat - 1] = '\0';
 	    printf("%s", pipe);
-	    return (0);
-	  }
-	else if (pipstat == -1)
-	  {
 	    return (0);
 	  }
 	prompt = "\033[32;1m";
