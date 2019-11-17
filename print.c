@@ -2,17 +2,23 @@
 
 /**
  *printl - Prints commands list.
- *
+ *@list: list to print
  */
 void printl(line_t *list)
 {
 	line_t *l = list;
+
 	while (l != NULL)
 	{
 		printf("%s\n", l->arg);
 		l = l->next;
 	}
 }
+
+/**
+ *printargs - Prints commands list.
+ *@args: args to print
+ */
 void printargs(char **args)
 {
 	int counter = 0;

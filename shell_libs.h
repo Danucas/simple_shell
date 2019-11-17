@@ -20,11 +20,18 @@ int string_cmp(char *s1, char *s2);
 char *str_concat(char *s1, char *s2);
 int _getchar(void);
 size_t _getline(char **line);
-char * get_env(char *var, char **envp, char **str);
+char * _getenv(char *var, char **envp, char **str);
 char *string_rem(char *s1, char *s2);
 void check_paths(char *str);
-char *str_cpy(char *from);
+void str_cpy(char *from, char *to);
+char *str_dup(char *from);
 char **_strtok(char *line, char *token);
 void free_args(char **args);
-
+void _gethostname(char *buff, int size);
+void getprompt(char **env, char *prompt);
+void exit_shell(char **prompt);
+int prompt_loop(char **argv, char **envp);
+int runchildproc(char **process, int time, char *context);
+int run_command(char **list, char *context);
+int run_multiprocess(char **list, char *context);
 #endif

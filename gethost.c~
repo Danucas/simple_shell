@@ -1,0 +1,28 @@
+#include "shell_libs.h"
+/**
+ *_gethostname - set the hostname to the buffer;
+ *@buff: storage for the hostname
+ *@size: max size to read
+ */
+void _gethostname(char *buff, int size)
+{
+	(void) buff;
+	(void) size;
+	int fd, rd;
+
+	fd = open("/proc/sys/kernel/hostname", O_RDONLY);
+	if (fd < 0)
+	{
+		printf("Error: Can't get hostname from /proc/sys/ke\
+rnel/hostname\n");
+		return;
+	}
+	rd = read(fd, buff, size);
+	if (rd < 0)
+	{
+		printf("Error: Can't read hostname from /proc/sys/k\
+ernel/hostname\n");
+		return;
+	}
+	buff[rd - 1] = '\0';
+}

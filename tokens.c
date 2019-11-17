@@ -2,47 +2,54 @@
 line_t *add_node(char *s, line_t **head);
 /**
  *_strtok - Separate a line and return a list.
- *
+ *@line: line to break
+ *@token: delimitator
  *Return: Pointer the first item os a list string.
  */
 char **_strtok(char *line, char *token)
 {
 	char buff[100];
-	int cont = 0, lcount = 0, argc = 0;
+	int cont = 0, lc = 0, argc = 0;
 	char **args;
-	while (line[lcount] != '\0')
+
+	while (line[lc] != '\0')
 	{
-		if (line[lcount] == *token || line[lcount + 1] == '\n')
-		     argc++;
-		lcount++;
+		if (line[lc] == *token || line[lc + 1] == '\n')
+		{
+			argc++;
+			if (line[lc + 1] == '\n')
+				break;
+		}
+		lc++;
 
 	}
-	args = malloc(sizeof(char*) * (argc + 1));
+	lc = 0;
+	args = malloc(sizeof(char *) * (argc + 1));
 	argc = 0;
-	while (*line != '\0')
+	while (line[lc] != '\0')
 	{
-		if (*line == *token || *(line + 1) == '\n')
+		if (line[lc] == *token || line[lc + 1] == '\n')
 		{
 
-			if (*(line + 1) == '\n')
+			if ((line[lc + 1]) == '\n')
 			{
-				buff[cont] = *line;
-				buff[cont+1] = '\0';
+				buff[cont] = line[lc];
+				buff[cont + 1] = '\0';
 			}
 			else
 				buff[cont] = '\0';
 			/*printf("%s\n", str_cpy(buff));/*/
-			args[argc] = str_cpy(buff);
+			args[argc] = str_dup(buff);
 			argc++;
 /*			add_node(buff, list);*/
 			cont = 0;
 		}
 		else
 		{
-			buff[cont] = *line;
+			buff[cont] = line[lc];
 			cont++;
 		}
-		line++;
+		lc++;
 	}
 	args[argc] = NULL;
 	return (args);

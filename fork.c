@@ -1,0 +1,25 @@
+#include "shell_libs.h"
+#include <sys/wait.h>
+
+int runchildproc(char **process, int time, char *context)
+{
+	pid_t ch_pid;
+	int status;
+
+	ch_pid = fork();
+	if (ch_pid == -1)
+	{
+		perror("Error:");
+	}
+	if (ch_pid == 0)
+	{
+		printf("Wait for me, wait for me\n");
+	}
+	else
+	{
+		run_command(process, context);
+		wait(&status);
+	}
+	(void) time;
+	return (0);
+}

@@ -7,27 +7,20 @@
  */
 char *str_concat(char *s1, char *s2)
 {
-	int len1 = string_len(s1);/*Get space to the new string.*/
-	int len2 = string_len(s2);
 	int counter = 0, new_count = 0;/*Iterate each string and new string.*/
-	char *new;/*The new resulting string.*/
 
-	new = malloc(sizeof(char) * (len1 + len2 + 1));
-	while(s1[counter] != '\0')/*Iterate s1 till NULL.*/
+	while (s1[new_count] != '\0')/*Iterate s1 till NULL.*/
 	{
-		new[new_count] = s1[counter];
-		new_count++;
-		counter++;/*Adding s1's info to new string.*/
+		new_count++;/*Adding s1's info to new string.*/
 	}
-	counter = 0;
-	while(s2[counter] != '\0')
+	while (s2[counter] != '\0')
 	{
-		new[new_count] = s2[counter];
+		s1[new_count] = s2[counter];
 		new_count++;
 		counter++;
 	}
-	new[new_count] = '\0';
-	return (new);
+	s1[new_count] = '\0';
+	return (s1);
 }
 /**
  *string_rem - Take n chars and erase it from the string.(Promt).
@@ -38,23 +31,21 @@ char *str_concat(char *s1, char *s2)
  */
 char *string_rem(char *s1, char *s2)
 {
-	int len1 = string_len(s1);/*Get the size of the strings.*/
 	int len2 = string_len(s2);/*Get the size of the second string.*/
-	int counter = len1, new_count = 0;
-	char *new_s = malloc(sizeof(char) * len2 - len1 + 1);
+	int counter = len2, new_count = 0;
 
-	while(s2[counter] != '\0')
+	while (s1[counter] != '\0')
 	{
-		new_s[new_count] = s2[counter];
+		s1[new_count] = s1[counter];
 		counter++;
 		new_count++;
 	}
-	new_s[new_count] = '\0';
-	return (new_s);
+	s1[new_count] = '\0';
+	return (s1);
 
 }
 /**
- *strin_len - Obtain the lenght of the string.
+ *string_len - Obtain the lenght of the string.
  *@s: String to get lenght.
  *Return: The lenght of the string.
  */
@@ -77,6 +68,7 @@ int string_len(char *s)
 int string_cmp(char *s1, char *s2)
 {
 	int count = 0;
+
 	while (s2[count] != '\0')
 	{
 		if (s1[count] != s2[count])
@@ -85,19 +77,23 @@ int string_cmp(char *s1, char *s2)
 	}
 	return (count);
 }
-
-char *str_cpy(char *from)
+/**
+ *str_dup - duplicate a string
+ *@from: string to duplicate
+ *Return: pointer to new string.
+ */
+char *str_dup(char *from)
 {
 	int cont = 0;
 	int len = string_len(from);
 	char *new_str;
-	new_str = malloc(sizeof(char) * (len + 1));
 
-	while (*from != '\0')
+	new_str = malloc(sizeof(char) * (len + 1));
+	while (from[cont] != '\0')
 	{
-		new_str[cont] = *from;
-		from++;
+		new_str[cont] = from[cont];
 		cont++;
 	}
+	new_str[cont] = '\0';
 	return (new_str);
 }

@@ -12,7 +12,7 @@ int _getchar(void)
 	{
 		return (buff[0]);
 	}
-	return (-1);
+	return (EOF);
 }
 /**
  *_getline - Obtain a lin fron the standard input.
@@ -24,14 +24,24 @@ size_t _getline(char **line)
 	size_t count = 0;
 	char c;
 
+	if (*line == NULL)
+	{
+		printf("Line is NULL\n");
+		return (-1);
+	}
 	while (1)
 	{
 		fflush(stdout);/*In case that standard output is open.*/
 		c = _getchar();
 		(*line)[count] = c;
 		count++;
-		if(c == '\n')
+		if (c == '\n')
+		{
+			(*line)[count] = '\0';
 			break;
+		}
+		if (c == -1)
+			return (c);
 	}
 	return (count);
 }
