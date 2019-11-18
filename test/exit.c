@@ -5,8 +5,7 @@
  */
 void exit_shell(char **prompt)
 {
-	printf("exiting\n");
 	free(*prompt);
-	printf("\n");
+	/*	printf("\n");*/
 	exit(0);
 }

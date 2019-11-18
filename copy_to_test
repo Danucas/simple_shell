@@ -2,5 +2,5 @@
 ls *.c|
 while read line
 do
-	cp $line ../$line
+	cp $line test/$line
 done

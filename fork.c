@@ -13,14 +13,14 @@ int runchildproc(char **process, int time, char *context)
 	}
 	if (ch_pid == 0)
 	{
-		printf("Wait for me, wait for me\n");
+	  /*		printf("Wait for me, wait for me\n");*/
 		run_command(process, context);
-		sleep(3);
+		sleep(time);
 	}
 	else
 	{
 		wait(&status);
-		printf("I'am your father\n");
+		/*		printf("I'am your father\n");*/
 	}
 	(void) time;
 	return (0);

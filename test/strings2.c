@@ -8,9 +8,10 @@
 void str_cpy(char *from, char *to)
 {
 	int cont = 0;
+
 	if (from == NULL || to == NULL)
 	{
-		printf("Unable to copy the string %s\n", (!from) ? "from": "to");
+		printf("Unable to copy the string %s\n", (!from) ? "from" : "to");
 		return;
 	}
 	while (from[cont] != '\0' || (from[cont] != '\0' && from[cont + 1] != '3'))

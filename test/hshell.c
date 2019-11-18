@@ -1,34 +1,28 @@
 #include "shell_libs.h"
-/**
- *main - shell main
- *@argc: args count
- *@argv: args
- *@envp: environment variables
- *Return: 0 if succed
- */
+
 int main(int argc, char **argv, char **envp)
 {
-	char *line, *prompt;
+	char pipe[1024];
+	int pipstat, promptstat;
+	char **list = malloc(sizeof(char *));
+
 	(void) argc;
 	(void) argv;
-	prompt = "\033[32;1m";
-	size_t cch;
-	line = malloc(1024);
-	get_env("USER", envp, &prompt);
-	prompt = str_concat(prompt, "@ubuntu:~\033[35m");
-	get_env("PWD", envp, &prompt);
-	prompt = str_concat(prompt, "\033[0m");
 
-	while (1)
+	if (!isatty(STDIN_FILENO))
 	{
-		printf("%s", prompt);
-		printf("$ ");
-		fflush(stdout);
-		cch = _getline(&line);
-		if (cch > 1)
+		pipstat = read(STDIN_FILENO, &pipe, 100);
+		if (pipstat >= 0)
 		{
-			printf("%s", line);
+			pipe[pipstat - 1] = '\0';
+			list = _strtok(pipe, " ");
+			if (execve(list[0], list, NULL) == -1)
+				printf("%s: 1: %s: not found\n", argv[0], list[0]);
+			free_args(list);
+			return (0);
 		}
 	}
+	promptstat = prompt_loop(argv, envp);
+	(void) promptstat;
 	return (0);
 }

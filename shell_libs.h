@@ -27,7 +27,7 @@ void str_cpy(char *from, char *to);
 char *str_dup(char *from);
 char **_strtok(char *line, char *token);
 void free_args(char **args);
-void _gethostname(char *buff, int size);
+int _gethostname(char *buff, int size);
 void getprompt(char **env, char *prompt);
 void exit_shell(char **prompt);
 int prompt_loop(char **argv, char **envp);
