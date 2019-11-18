@@ -22,7 +22,7 @@ int _getchar(void);
 size_t _getline(char **line);
 char * _getenv(char *var, char **envp, char **str);
 char *string_rem(char *s1, char *s2);
-void check_paths(char *str);
+void check_paths(char **paths, char **args, char **envp);
 void str_cpy(char *from, char *to);
 char *str_dup(char *from);
 char **_strtok(char *line, char *token);
@@ -34,4 +34,5 @@ int prompt_loop(char **argv, char **envp);
 int runchildproc(char **process, int time, char *context);
 int run_command(char **list, char *context);
 int run_multiprocess(char **list, char *context);
+int _cd(char *path, char **envp);
 #endif

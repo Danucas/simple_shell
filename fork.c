@@ -4,7 +4,7 @@
 int runchildproc(char **process, int time, char *context)
 {
 	pid_t ch_pid;
-	int status;
+	int status, runstat;
 
 	ch_pid = fork();
 	if (ch_pid == -1)
@@ -14,12 +14,14 @@ int runchildproc(char **process, int time, char *context)
 	if (ch_pid == 0)
 	{
 	  /*		printf("Wait for me, wait for me\n");*/
-		run_command(process, context);
+		runstat = run_command(process, context);
 		sleep(time);
+		return (runstat);
 	}
 	else
 	{
 		wait(&status);
+		return (0);
 		/*		printf("I'am your father\n");*/
 	}
 	(void) time;

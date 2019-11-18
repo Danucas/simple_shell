@@ -25,14 +25,12 @@ void getprompt(char **envp, char *prompt)
 	      {
 		str_concat(prompt, copy);
 	      }
-	    
 	  }
-	
 	str_cpy("\033[0m:\033[31;1m~", copy);
 	str_concat(prompt, copy);
 	_getenv("HOME", envp, &copy);
 	_getenv("PWD", envp, &copy2);
-	str_cpy(string_rem(copy2, copy), copy);
+	str_cpy(string_rem(copy, copy2), copy);
 	str_concat(prompt, copy);
 	prompt = str_concat(prompt, "\033[0m");
 	free(copy);
@@ -49,9 +47,10 @@ int prompt_loop(char **argv, char **envp)
 
 	prompt = malloc(sizeof(char) * 70);
 	line = malloc(sizeof(char) * 1024);
-	getprompt(envp, prompt);
+
 	while (1)
 	{
+		getprompt(envp, prompt);
 		printf("%s", prompt);
 		printf("$ ");
 		fflush(stdout);
@@ -66,7 +65,7 @@ int prompt_loop(char **argv, char **envp)
 			list = _strtok(line, " ");
 			_getenv("PATH", envp, &line);
 			path = _strtok(line, ":");
-			printargs(path);
+			check_paths(path, list, envp);
 			/*			runchildproc(list, 1, argv[0]);*/
 			free_args(list);
 			free_args(path);

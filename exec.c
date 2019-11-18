@@ -3,7 +3,11 @@
 int run_command(char **list, char *context)
 {
 	if (execve(list[0], list, NULL) == -1)
-		printf("%s: 1: %s: not found\n", context, list[0]);
+	{
+		/*	printf("%s: 1: %s: not found\n", context, list[0]);*/
+		return (1);
+	}
+	(void) context;
 	return (0);
 }
 
