@@ -35,25 +35,26 @@ char *string_rem(char *s1, char *s2)
 	int len2 = string_len(s2);/*Get the size of the second string.*/
 	int counter = 0, new_count = 0;
 	(void) len2;
+	printf("%s\n", s2);
 	while (s2[counter] != '\0')
 	{
 		int st = string_cmp(s1, &(s2[counter]));
-		printf("stat: %d len1: %d %s", st, len1, &(s2[counter]));
+/*		printf("stat: %d len1: %d %s", st, len1, &(s2[counter]));*/
 		if(st < len1)
 		{
-			printf(" dismatch\n");
-			s1[new_count] = s2[counter];
+/*			printf(" dismatch\n");*/
+			s2[new_count] = s2[counter];
 			new_count++;
 		}
 		else if (st == len1)
 		{
-			printf(" match\n");
+/*			printf(" match\n");*/
 			counter += len1 -1;
 		}
 		counter++;
 	}
-	s1[new_count] = '\0';
-	return (s1);
+	s2[new_count] = '\0';
+	return (s2);
 
 }
 /**

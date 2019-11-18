@@ -1,6 +1,6 @@
 #include "shell_libs.h"
 
-void check_paths(char **paths, char **args, char **envp)
+int check_paths(char **paths, char **args, char **envp)
 {
 	char *copy;
 	int i = 0;
@@ -16,12 +16,13 @@ void check_paths(char **paths, char **args, char **envp)
 	if (string_cmp("cd", args[0]) == 2)
 	{
 		_cd(args[1], envp);
-		return;
+		return (0);
 	}
-	runstatus = run_command(args, command);
+	runstatus = runchildproc(args, 0, command, envp);
+	printf("runstatus: %d\n", runstatus);
 	if (runstatus == 0)
 	{
-		return;
+		return(runstatus);
 	}
 	while (paths[i] != NULL)
 	{
@@ -32,14 +33,16 @@ void check_paths(char **paths, char **args, char **envp)
 /*		printf("path to check: %s\n", copy);
 		if (_getenv("TERM", envp,  &env) != NULL)
 		printf("TERM value: %s\n", env);*/
-		runstatus = runchildproc(args, 0, command);
+		runstatus = runchildproc(args, 0, command, envp);
 		if (runstatus == 0)
 		{
-			return;
+			return(runstatus);
 		}
 		i++;
 	}
+	
 	(void) paths;
 	(void) env;
 	(void) envp;
+	return (-1);
 }

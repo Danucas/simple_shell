@@ -14,19 +14,23 @@ void getprompt(char **envp, char *prompt)
 	copy2 = malloc(sizeof(char) * 200);
 	prompt[0] = '\0';
 	_getenv("USER", envp, &copy);
-	str_cpy("\033[34;1m", copy2);
+	str_cpy("\033[31;1m", copy2);
 	str_concat(copy2, copy);
 	str_concat(prompt, copy2);
 	str_cpy("@", copy);
 	str_concat(prompt, copy);
 	if ((_gethostname(hostname, 30)) == -1)
-	  {
-	    if(_getenv("HOSTNAME", envp, &copy) != NULL)
-	      {
-		str_concat(prompt, copy);
-	      }
-	  }
-	str_cpy("\033[0m:\033[31;1m~", copy);
+	{
+		if(_getenv("HOSTNAME", envp, &copy) != NULL)
+		{
+			str_concat(prompt, copy);
+		}
+	}
+	else
+	{
+		str_concat(prompt, hostname);
+	}
+	str_cpy("\033[0m:\033[32;1m~", copy);
 	str_concat(prompt, copy);
 	_getenv("HOME", envp, &copy);
 	_getenv("PWD", envp, &copy2);
@@ -36,6 +40,7 @@ void getprompt(char **envp, char *prompt)
 	free(copy);
 	free(copy2);
 	(void) hostname;
+	(void) envp;
 }
 
 int prompt_loop(char **argv, char **envp)
@@ -55,20 +60,27 @@ int prompt_loop(char **argv, char **envp)
 		printf("$ ");
 		fflush(stdout);
 		cch = _getline(&line);
+		printf("getline result: %d pid: %d\n", (int) cch, getpid());
+		if ((int) cch == -1)
+		{
+		  /*
+		    printf("exiting\n");*/
+			exit(10);
+			exit_shell(&prompt);
+		}
 		if (cch > 1)
 		{
-			if ((int) cch == -1)
-			{
-			  /*				printf("exiting\n");*/
-				exit_shell(&prompt);
-			}
+			
 			list = _strtok(line, " ");
 			_getenv("PATH", envp, &line);
 			path = _strtok(line, ":");
-			check_paths(path, list, envp);
+			if (check_paths(path, list, envp) == -1)
+				exit(1);
 			/*			runchildproc(list, 1, argv[0]);*/
-			free_args(list);
-			free_args(path);
+			if (list[0] != NULL)
+				free_args(list);
+			if (path[0] != NULL)
+				free_args(path);
 		}
 		fflush(stdin);
 	}

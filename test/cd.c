@@ -42,8 +42,7 @@ int _cd(char *path, char **envp)
 		printf("%d %s\n", __LINE__, newpath);
 		string_rem("/simple_shell", newpath);
 		printf("%d\n", __LINE__);
-		str_concat(newpath, path);
-		printf("%d\n", __LINE__);
+		printf("%d %s\n", __LINE__, newpath);
 		change_dir(newpath, pwdir, envp);
 	}
 	else

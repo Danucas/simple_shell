@@ -1,10 +1,10 @@
 #include "shell_libs.h"
 #include <sys/wait.h>
 
-int runchildproc(char **process, int time, char *context)
+int runchildproc(char **process, int time, char *context, char **env)
 {
 	pid_t ch_pid;
-	int status, runstat;
+	int status, runstat = 0;
 
 	ch_pid = fork();
 	if (ch_pid == -1)
@@ -14,16 +14,20 @@ int runchildproc(char **process, int time, char *context)
 	if (ch_pid == 0)
 	{
 	  /*		printf("Wait for me, wait for me\n");*/
-		runstat = run_command(process, context);
-		sleep(time);
-		return (runstat);
+		runstat = execve(process[0], process, env);
+		printf("runstat fork: %d\n", runstat);
+		if (runstat == -1)
+		{
+			return(-1);
+		}
+/*		exit(1);*/
 	}
 	else
 	{
 		wait(&status);
-		return (0);
 		/*		printf("I'am your father\n");*/
 	}
 	(void) time;
-	return (0);
+	(void) context;
+	return (runstat);
 }

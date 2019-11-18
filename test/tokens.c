@@ -14,10 +14,10 @@ char **_strtok(char *line, char *token)
 
 	while (line[lc] != '\0')
 	{
-		if (line[lc] == *token || line[lc + 1] == '\n')
+		if (line[lc] == *token || line[lc + 1] == '\n' || line[lc + 1] == '\0')
 		{
 			argc++;
-			if (line[lc + 1] == '\n')
+			if (line[lc + 1] == '\n' || line[lc + 1] == '\0')
 				break;
 		}
 		lc++;
@@ -26,15 +26,17 @@ char **_strtok(char *line, char *token)
 	lc = 0;
 	args = malloc(sizeof(char *) * (argc + 1));
 	argc = 0;
+	int end = 0;
 	while (line[lc] != '\0')
 	{
-		if (line[lc] == *token || line[lc + 1] == '\n')
+		if (line[lc] == *token || line[lc + 1] == '\n' || line[lc + 1] == '\0')
 		{
 
-			if ((line[lc + 1]) == '\n')
+			if ((line[lc + 1]) == '\n' || line[lc + 1] == '\0')
 			{
 				buff[cont] = line[lc];
 				buff[cont + 1] = '\0';
+				end = 1;
 			}
 			else
 				buff[cont] = '\0';
@@ -43,6 +45,8 @@ char **_strtok(char *line, char *token)
 			argc++;
 /*			add_node(buff, list);*/
 			cont = 0;
+			if (end == 1)
+				break;
 		}
 		else
 		{
