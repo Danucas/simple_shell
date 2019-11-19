@@ -1,4 +1,5 @@
 #include "shell_libs.h"
+
 /**
  *main - shell main
  *@argc: Args count.
@@ -9,10 +10,9 @@
 void getprompt(char **envp, char *prompt)
 {
 	char hostname[30], *copy, *copy2;
-
+	prompt[0] = '\0';
 	copy = malloc(sizeof(char) * 200);
 	copy2 = malloc(sizeof(char) * 200);
-	prompt[0] = '\0';
 	_getenv("USER", envp, &copy);
 	str_cpy("\033[31;1m", copy2);
 	str_concat(copy2, copy);
@@ -42,20 +42,32 @@ void getprompt(char **envp, char *prompt)
 	(void) hostname;
 	(void) envp;
 }
-
+char **ars;
+char **env;
+void sig_handler(int signal)
+{
+	printf("Signal: %d\n", signal);
+	fflush(stdout);
+	prompt_loop(ars, env);
+}
 int prompt_loop(char **argv, char **envp)
 {
 	char *line, *prompt;
 	size_t cch;
 	char **list;
 	char **path;
+	ars = argv;
+	env = envp;
 
 	prompt = malloc(sizeof(char) * 70);
 	line = malloc(sizeof(char) * 1024);
-
+	signal(SIGINT, sig_handler);
 	while (1)
 	{
+		
 		getprompt(envp, prompt);
+		char *pwd = malloc(100);
+		printf("Current Dir: %s\n", _getenv("PWD", envp, &pwd));
 		printf("%s", prompt);
 		printf("$ ");
 		fflush(stdout);
@@ -83,6 +95,7 @@ int prompt_loop(char **argv, char **envp)
 				free_args(path);
 		}
 		fflush(stdin);
+
 	}
 	(void) argv;
 	return (0);

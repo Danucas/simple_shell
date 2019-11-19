@@ -7,6 +7,7 @@ int check_paths(char **paths, char **args, char **envp)
 	char *command, *req = args[0];
 	int runstatus;
 	char *env;
+	struct stat *state = malloc(sizeof(struct stat));
 
 	command = malloc(sizeof(char) * 100);
 	env = malloc(sizeof(char) * 100);
@@ -18,10 +19,11 @@ int check_paths(char **paths, char **args, char **envp)
 		_cd(args[1], envp);
 		return (0);
 	}
-	runstatus = runchildproc(args, 0, command, envp);
+	runstatus = stat(command, state);
 	printf("runstatus: %d\n", runstatus);
 	if (runstatus == 0)
 	{
+		runchildproc(args, 0, command, envp);
 		return(runstatus);
 	}
 	while (paths[i] != NULL)
@@ -33,9 +35,10 @@ int check_paths(char **paths, char **args, char **envp)
 /*		printf("path to check: %s\n", copy);
 		if (_getenv("TERM", envp,  &env) != NULL)
 		printf("TERM value: %s\n", env);*/
-		runstatus = runchildproc(args, 0, command, envp);
+		runstatus = stat(args[0], state);
 		if (runstatus == 0)
 		{
+			runchildproc(args, 0, command, envp);
 			return(runstatus);
 		}
 		i++;

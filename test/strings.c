@@ -35,7 +35,6 @@ char *string_rem(char *s1, char *s2)
 	int len2 = string_len(s2);/*Get the size of the second string.*/
 	int counter = 0, new_count = 0;
 	(void) len2;
-	printf("%s\n", s2);
 	while (s2[counter] != '\0')
 	{
 		int st = string_cmp(s1, &(s2[counter]));
