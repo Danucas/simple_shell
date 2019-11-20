@@ -7,6 +7,12 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <signal.h>
+/**
+ *struct Strings - simple string struct for a linked list
+ *@arg:  the string
+ *@next: the pointer to the next node
+ *Description: node for a string linked list
+ */
 typedef struct Strings
 {
 	char *arg;
@@ -20,7 +26,7 @@ int string_cmp(char *s1, char *s2);
 char *str_concat(char *s1, char *s2);
 int _getchar(void);
 size_t _getline(char **line);
-char * _getenv(char *var, char **envp, char **str);
+char *_getenv(char *var, char **envp, char **str);
 int _setenv(char *var, char **envp, char *value);
 char *string_rem(char *s1, char *s2);
 int check_paths(char **paths, char **args, char **envp);

@@ -11,6 +11,7 @@ char **_strtok(char *line, char *token)
 	char buff[100];
 	int cont = 0, lc = 0, argc = 0;
 	char **args;
+	int end = 0;
 
 	while (line[lc] != '\0')
 	{
@@ -26,7 +27,6 @@ char **_strtok(char *line, char *token)
 	lc = 0;
 	args = malloc(sizeof(char *) * (argc + 1));
 	argc = 0;
-	int end = 0;
 	while (line[lc] != '\0')
 	{
 		if (line[lc] == *token || line[lc + 1] == '\n' || line[lc + 1] == '\0')

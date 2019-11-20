@@ -43,30 +43,32 @@ char *_getenv(char *var, char **envp, char **str)
 	return (NULL);
 }
 /**
- *_getenv - Get the value of a environment variable.
- *@var: Variable to get.
+ *_setenv - Get the value of a environment variable.
+ *@var: Variable to set.
  *@envp: Environmet variable's list.
- *@str: Pointer where the result is contained.
- *Return: The variable value.
+ *@value: the new value
+ *Return: 1 if success
  */
 int _setenv(char *var, char **envp, char *value)
 {
 	int pos = 0;
 	int len;
 	char *cop = malloc(100);
+
 	str_cpy(var, cop);
 	str_concat(cop, "=");
 	len = string_len(cop);
-	printf("Var name: %s\n", cop);
+/*	printf("Var name: %s\n", cop);*/
 	while (envp[pos] != NULL)
 	{
 		if (string_cmp(cop, envp[pos]) == len)
 		{
-			printf("match old: %s new: %s\n", envp[pos], value);
-			envp[pos] = str_dup(value);
+/*			printf("match old: %s new: %s\n", envp[pos], value);*/
+			str_cpy(value, envp[pos]);
 		}
 		pos++;
 	}
+	free(cop);
 	(void) envp;
 	(void) len;
 	(void) value;
