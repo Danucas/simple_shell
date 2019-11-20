@@ -1,35 +1,43 @@
 #include "shell_libs.h"
+int parse_and_run(char *arg, char **envp, int hits);
 /**
- *main - shell main
- *@argc: Args count.
- *@argv: Args.
- *@envp: Environment variables.
- *Return: 0 if succed.
+ *handle_format - set the Prompt content
+ *@token: token to the value it's beeing asked
+ *Return: a pointer to he value requested
+ */
+char *handle_format(char *token)
+{
+	(void) token;
+	return (NULL);
+}
+/**
+ *getprompt - set the Prompt content
+ *@envp: environment variables
+ *@prompt: Pointer to the prompt line.
  */
 void getprompt(char **envp, char *prompt)
 {
 	char hostname[30], *copy, *copy2;
 
+	prompt[0] = '\0';
 	copy = malloc(sizeof(char) * 200);
 	copy2 = malloc(sizeof(char) * 200);
-	prompt[0] = '\0';
 	_getenv("USER", envp, &copy);
 	str_cpy("\033[31;1m", copy2);
 	str_concat(copy2, copy);
 	str_concat(prompt, copy2);
-	str_cpy("@", copy);
-	str_concat(prompt, copy);
 	if ((_gethostname(hostname, 30)) == -1)
 	{
-		if(_getenv("HOSTNAME", envp, &copy) != NULL)
-		{
+		if (_getenv("HOSTNAME", envp, &copy) != NULL)
 			str_concat(prompt, copy);
-		}
 	}
-	else
-	{
-		str_concat(prompt, hostname);
-	}
+/*	else*/
+/*	{*/
+/*	str_cpy("@", copy);*/
+/*	str_concat(prompt, copy);*/
+/**/
+/*	str_concat(prompt, hostname);*/
+	/*		}*/
 	str_cpy("\033[0m:\033[32;1m~", copy);
 	str_concat(prompt, copy);
 	_getenv("HOME", envp, &copy);
@@ -42,48 +50,79 @@ void getprompt(char **envp, char *prompt)
 	(void) hostname;
 	(void) envp;
 }
-
+/**
+ *sig_handler - hands the signals
+ *@signal: environment variables
+ */
+void sig_handler(int signal)
+{
+	printf("Signal: %d\n", signal);
+	fflush(stdout);
+}
+/**
+ *prompt_loop - init the capturing loop and the sighandler
+ *@argv: arguments from main
+ *@envp: environment variables
+ *Return: -1 if  it fails
+ */
 int prompt_loop(char **argv, char **envp)
 {
-	char *line, *prompt;
-	size_t cch;
-	char **list;
-	char **path;
+	static int enteredhits = 1, parse_stat;
+	char *prompt;
 
 	prompt = malloc(sizeof(char) * 70);
-	line = malloc(sizeof(char) * 1024);
-
+	signal(SIGINT, sig_handler);
 	while (1)
 	{
+
 		getprompt(envp, prompt);
 		printf("%s", prompt);
 		printf("$ ");
 		fflush(stdout);
-		cch = _getline(&line);
-		printf("getline result: %d pid: %d\n", (int) cch, getpid());
-		if ((int) cch == -1)
+		parse_stat = parse_and_run(argv[0], envp, enteredhits);
+	        if (parse_stat == -2)
 		{
-		  /*
-		    printf("exiting\n");*/
-			exit(10);
 			exit_shell(&prompt);
 		}
-		if (cch > 1)
-		{
-			
-			list = _strtok(line, " ");
-			_getenv("PATH", envp, &line);
-			path = _strtok(line, ":");
-			if (check_paths(path, list, envp) == -1)
-				exit(1);
-			/*			runchildproc(list, 1, argv[0]);*/
-			if (list[0] != NULL)
-				free_args(list);
-			if (path[0] != NULL)
-				free_args(path);
-		}
-		fflush(stdin);
+		enteredhits++;
 	}
 	(void) argv;
-	return (0);
+	return (-1);
+}
+/**
+ *parse_and_run - get the input parsed and runit
+ *@envp: environment variables
+ *Return: -1 if  it fails
+ */
+int parse_and_run(char *arg, char **envp, int hits)
+{
+	char *line;
+	char *path;
+	size_t cch;
+	char **list;
+	char **paths;
+	int ret = 0;
+
+	line = malloc(sizeof(char) * 1024);
+	path = malloc(sizeof(char) * 1024);
+	cch = _getline(&line);
+	if ((int) cch == -1)
+	{
+		ret = -2;
+	}
+	if (cch > 1 && line[0] > 31 && line[0] < 127)
+	{
+		list = _strtok(line, " ");
+		paths = _strtok(_getenv("PATH", envp, &path), ":");
+		if (check_paths(paths, list, envp) == -1)
+		{
+			printf("%s: %d: %s: not found\n", arg, hits, list[0]);
+		}
+		free_args(list);
+	       	free_args(paths);
+	}
+	free(line);
+	free(path);
+	fflush(stdin);
+	return (ret);
 }
