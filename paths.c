@@ -17,17 +17,20 @@ int check_paths(char **paths, char **args, char **envp)
 	command = malloc(sizeof(char) * 100);
 	copy = malloc(sizeof(char) * 100);
 	str_cpy(args[0], command);
-	if (string_cmp("cd", args[0]) == 2)
+	if (string_cmp("cd", command) == 2)
 	{
 		_cd(args[1], envp);
+		free(command);
+		free(state);
+		free(copy);
 		return (0);
 	}
 	runstatus = stat(command, state);
 	if (runstatus == 0)
 	{
-		runchildproc(args, 0, command, envp);
-		return (runstatus);
+		runstatus = runchildproc(args, 0, command, envp);
 	}
+	free(args[0]);
 	while (paths[i] != NULL)
 	{
 		str_cpy(paths[i], copy);

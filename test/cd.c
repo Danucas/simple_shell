@@ -10,10 +10,13 @@ char *get_current(char *fullpath);
 int change_dir(char *newpath, char *pwdir, char **envp)
 {
 	char *newpwd = malloc(100);
+	char *tmp;
 /*	printf("PWD: %s\nOLDPWD: %s\n", newpath, pwdir);*/
 	if (chdir(newpath) == -1)
 	{
-		printf("%s: cd: %s: ", get_current(newpath), "./concha");
+		tmp = get_current(newpath);
+		printf("%s: cd: %s: ", tmp, "./concha");
+		free(tmp);
 		printf("No such file or directory");
 		return (-1);
 	}
@@ -40,6 +43,7 @@ int _cd(char *path, char **envp)
 	int evc = 0;
 	char *pwdir = malloc(sizeof(char) * 200);
 	char *newpath = malloc(sizeof(char) * 200);
+	char *tmp;
 	(void) evc;
 	(void) varname_len;
 /*	printf("before pwd\n");*/
@@ -50,6 +54,8 @@ int _cd(char *path, char **envp)
 	if (path == NULL)
 	{
 		printf("No path, would go HOME\n");
+		free(pwdir);
+		free(newpath);
 		return (0);
 	}
 	if (path[0] != '/' && path[0] != '.')
@@ -62,16 +68,22 @@ int _cd(char *path, char **envp)
 	else if (path[0] == '.')
 	{
 		if (path[1] != '.')
+		{
+			free(newpath);
+			free(pwdir);
 			return (0);
+		}
 /*		printf("%d\n", __LINE__);*/
 		str_cpy(pwdir, newpath);
 /*		printf("%d %s\n", __LINE__, newpath);*/
-		string_rem(get_current(newpath), newpath);
+		tmp = get_current(newpath);
+		string_rem(tmp, newpath);
 /*		printf("%d\n", __LINE__);*/
 /*		printf("%d %s\n", __LINE__, newpath);*/
 		change_dir(newpath, pwdir, envp);
+		free(tmp);
 	}
-	else
+	else if (path[0] != '\0' && path[0] != ' ')
 	{
 		str_concat(newpath, path);
 		change_dir(newpath, pwdir, envp);
