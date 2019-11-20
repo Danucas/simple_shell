@@ -1,1 +1,32 @@
-Ready!!
+.TH man_1_simple_shell V. 1,0 2019
+.SH NAME
+simple_shell \-Simple UNIX command interpreter.
+.SH SYNOPSIS
+.B man_1_simple_shell
+[\fB\options\fR]
+[\FB\file\fR]
+.SH DESCRIPTION
+.B simple_shell
+is an sh-compatible command language interpreter that executes commands read
+from the standard input or from a file.
+.SH OPTIONS
+.B In addition to the single-character shell options documented in the
+description of the set builtin command, simple_shell interprets the following
+options when it is invoked.
+.TP
+.B -a
+Make something.
+.B -b
+Make another thing.
+.B -c
+Make more things.
+.SH ARGUMENTS
+.B If arguments remain after option processing, and neither the -c or the -s
+option has been supplied, the first argument is assumed to be the name of a file
+containing simple_shell commands. If simple_shell is invoked in this fashion, $0
+is set to the name of the file, and the positional parameters are set to the
+remaining arguments. Simple_shell reads and executes commands from this file,
+then exits. Simple_shell's exit status is the exit status of the last command
+executed in the script. If no commands are executed, the exit status is 0. An
+attempt is first made to open the file in the current directory, and, if no file
+is found, then simple_shell searches the directories in PATH for the script.
