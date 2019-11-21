@@ -17,9 +17,12 @@ char **_strtok(char *line, char *token)
 	{
 		if (line[lc] == *token || line[lc + 1] == '\n' || line[lc + 1] == '\0')
 		{
-			argc++;
-			if (line[lc + 1] == '\n' || line[lc + 1] == '\0')
-				break;
+			if (line[lc + 1] != *token)
+			{
+				argc++;
+				if (line[lc + 1] == '\n' || line[lc + 1] == '\0')
+					break;
+			}
 		}
 		lc++;
 
@@ -31,22 +34,34 @@ char **_strtok(char *line, char *token)
 	{
 		if (line[lc] == *token || line[lc + 1] == '\n' || line[lc + 1] == '\0')
 		{
-
-			if ((line[lc + 1]) == '\n' || line[lc + 1] == '\0')
+			if (line[lc + 1] != *token)
 			{
-				buff[cont] = line[lc];
-				buff[cont + 1] = '\0';
-				end = 1;
-			}
-			else
-				buff[cont] = '\0';
-			/*printf("%s\n", str_cpy(buff));/*/
-			args[argc] = str_dup(buff);
-			argc++;
+				if ((line[lc + 1]) == '\n' || line[lc + 1] == '\0')
+				{
+					buff[cont] = line[lc];
+					buff[cont + 1] = '\0';
+					end = 1;
+				}
+				else
+					buff[cont] = '\0';
+				/*printf("%s\n", str_cpy(buff));/*/
+				cont = 0;
+				while (buff[cont] != '\0')
+				{
+					if (buff[cont] == *token)
+					{
+						buff[cont] = '\0';
+						break;
+					}
+					cont++;
+				}
+				args[argc] = str_dup(buff);
+				argc++;
 /*			add_node(buff, list);*/
-			cont = 0;
-			if (end == 1)
-				break;
+				cont = 0;
+				if (end == 1)
+					break;
+			}
 		}
 		else
 		{

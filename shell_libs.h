@@ -30,6 +30,7 @@ char *_getenv(char *var, char **envp, char **str);
 int _setenv(char *var, char **envp, char *value);
 char *string_rem(char *s1, char *s2);
 int check_paths(char **paths, char **args, char **envp);
+int check_builtin(char *command, char **args, char **envp);
 void str_cpy(char *from, char *to);
 char *str_dup(char *from);
 char **_strtok(char *line, char *token);

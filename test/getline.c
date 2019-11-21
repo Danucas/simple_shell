@@ -22,7 +22,8 @@ int _getchar(void)
 size_t _getline(char **line)
 {
 	size_t count = 0;
-	char c;
+	char *initial = *line;
+/*	char signal[1];*/
 
 	if (*line == NULL)
 	{
@@ -32,16 +33,32 @@ size_t _getline(char **line)
 	while (1)
 	{
 		fflush(stdout);/*In case that standard output is open.*/
-		c = _getchar();
-		(*line)[count] = c;
-		count++;
-		if (c == '\n')
+/*		printf("args: %s\n", initial);*/
+		count = read(STDIN_FILENO, *line, 1024);
+		if (count < 1)
 		{
-			(*line)[count] = '\0';
-			break;
+			*line = initial;
+			return (-1);
 		}
-		if (c == -1)
-			return (c);
+		else if (count == 1 && (*line)[count - 1] == '\n')
+		{
+			*line = initial;
+			if (string_len(initial) > 1)
+			{
+				return (string_len(initial));
+			}
+			return (0);
+		}
+		else if (count >= 1 && (*line)[count - 1] != '\n')
+		{
+			*line = *line + count;
+		}
+		else if (count >= 1)
+		{
+			(*line)[count - 1] = '\0';
+			*line = initial;
+			return (count);
+		}
 	}
 	return (count);
 }

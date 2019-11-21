@@ -18,6 +18,7 @@ char *handle_format(char *token)
 void getprompt(char **envp, char *prompt)
 {
 	char hostname[30], *copy, *copy2;
+	int p_fd = open("/tmp/prompt_line", O_RDWR | O_CREAT | O_TRUNC, 0644);
 
 	prompt[0] = '\0';
 	copy = malloc(sizeof(char) * 200);
@@ -45,6 +46,11 @@ void getprompt(char **envp, char *prompt)
 	str_cpy(string_rem(copy, copy2), copy);
 	str_concat(prompt, copy);
 	prompt = str_concat(prompt, "\033[0m");
+	if (write(p_fd, prompt, string_len(prompt)) == -1)
+	{
+		printf("pailas tmp\n");
+	}
+	close(p_fd);
 	free(copy);
 	free(copy2);
 	(void) hostname;
@@ -56,8 +62,22 @@ void getprompt(char **envp, char *prompt)
  */
 void sig_handler(int signal)
 {
-	printf("Signal: %d\n", signal);
+	(void) signal;
+	char *last_line = malloc(100);
+	int p_fd = open("/tmp/prompt_line", O_RDONLY);
+	int rd = read(p_fd, last_line, 100);
+
+	if (rd == -1)
+	{
+		printf("no such last line\n");
+	}
+	last_line[rd] = '\0';
+	close(p_fd);
+	printf("\n");
 	fflush(stdout);
+	printf("%s$ ", last_line);
+	fflush(stdout);
+	free(last_line);
 }
 /**
  *prompt_loop - init the capturing loop and the sighandler
@@ -74,13 +94,12 @@ int prompt_loop(char **argv, char **envp)
 	signal(SIGINT, sig_handler);
 	while (1)
 	{
-
 		getprompt(envp, prompt);
 		printf("%s", prompt);
 		printf("$ ");
 		fflush(stdout);
 		parse_stat = parse_and_run(argv[0], envp, enteredhits);
-	        if (parse_stat == -2)
+		if (parse_stat == -1)
 		{
 			exit_shell(&prompt);
 		}
@@ -91,7 +110,9 @@ int prompt_loop(char **argv, char **envp)
 }
 /**
  *parse_and_run - get the input parsed and runit
+ *@arg: args
  *@envp: environment variables
+ *@hits: hit counter
  *Return: -1 if  it fails
  */
 int parse_and_run(char *arg, char **envp, int hits)
@@ -108,9 +129,9 @@ int parse_and_run(char *arg, char **envp, int hits)
 	cch = _getline(&line);
 	if ((int) cch == -1)
 	{
-		ret = -2;
+		ret = -1;
 	}
-	if (cch > 1 && line[0] > 31 && line[0] < 127)
+	if ((int) cch > 1 && line[0] > 31 && line[0] < 127)
 	{
 		list = _strtok(line, " ");
 		paths = _strtok(_getenv("PATH", envp, &path), ":");
@@ -119,7 +140,7 @@ int parse_and_run(char *arg, char **envp, int hits)
 			printf("%s: %d: %s: not found\n", arg, hits, list[0]);
 		}
 		free_args(list);
-	       	free_args(paths);
+		free_args(paths);
 	}
 	free(line);
 	free(path);

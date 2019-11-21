@@ -17,9 +17,8 @@ int check_paths(char **paths, char **args, char **envp)
 	command = malloc(sizeof(char) * 100);
 	copy = malloc(sizeof(char) * 100);
 	str_cpy(args[0], command);
-	if (string_cmp("cd", command) == 2)
+	if (check_builtin(command, args, envp) >= 0)
 	{
-		_cd(args[1], envp);
 		free(command);
 		free(state);
 		free(copy);
@@ -48,4 +47,21 @@ int check_paths(char **paths, char **args, char **envp)
 	free(state);
 	free(copy);
 	return (runstatus);
+}
+/**
+ *check_builtin - check all paths
+ *@command: check the stat of the command in each path
+ *@args: arguments
+ *@envp: the environment
+ *Return: 0 if success
+ */
+int check_builtin(char *command, char **args, char **envp)
+{
+	if (string_cmp("cd", command) == 2 && string_len(command) == 2)
+	{
+		_cd(args[1], envp);
+		return (0);
+	}
+
+	return (-1);
 }

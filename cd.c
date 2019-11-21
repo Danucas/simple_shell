@@ -15,7 +15,7 @@ int change_dir(char *newpath, char *pwdir, char **envp)
 	if (chdir(newpath) == -1)
 	{
 		tmp = get_current(newpath);
-		printf("%s: cd: %s: ", tmp, "./concha");
+		printf("%s: cd: %s: ", "./concha", tmp + 1);
 		free(tmp);
 		printf("No such file or directory\n");
 		free(newpwd);
