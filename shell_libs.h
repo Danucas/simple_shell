@@ -19,21 +19,28 @@ typedef struct Strings
 	struct Strings *next;
 } line_t;
 
-void printl(line_t *list);
-void printargs(char **args);
+/*String manipulation functions*/
 int string_len(char *s);
 int string_cmp(char *s1, char *s2);
 char *str_concat(char *s1, char *s2);
-int _getchar(void);
-size_t _getline(char **line);
-char *_getenv(char *var, char **envp, char **str);
-int _setenv(char *var, char **envp, char *value);
-char *string_rem(char *s1, char *s2);
-int check_paths(char **paths, char **args, char **envp);
-int check_builtin(char *command, char **args, char **envp);
 void str_cpy(char *from, char *to);
 char *str_dup(char *from);
 char **_strtok(char *line, char *token);
+char *string_rem(char *s1, char *s2);
+
+/*Printing functions*/
+void printl(line_t *list);
+void printargs(char **args);
+
+/*Environment process*/
+char *_getenv(char *var, char **envp, char **str);
+int _setenv(char *var, char **envp, char *value);
+
+/*Lexic analizer*/
+int check_paths(char **paths, char **args, char **envp);
+int write_alias(char **argv, char **envp);
+int _getchar(void);
+size_t _getline(char **line);
 void free_args(char **args);
 int _gethostname(char *buff, int size);
 void getprompt(char **env, char *prompt);
@@ -42,5 +49,8 @@ int prompt_loop(char **argv, char **envp);
 int runchildproc(char **process, int time, char *context, char **env);
 int run_command(char **list, char *context, char **env);
 int run_multiprocess(char **list, char *context, char **env);
+/*Built in functions*/
 int _cd(char *path, char **envp);
+int check_builtin(char *command, char **args, char **envp);
+int parse_alias(char **args, char **envp);
 #endif

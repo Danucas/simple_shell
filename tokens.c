@@ -32,6 +32,8 @@ char **_strtok(char *line, char *token)
 	argc = 0;
 	while (line[lc] != '\0')
 	{
+		if (line[lc] == '"')
+			lc++;
 		if (line[lc] == *token || line[lc + 1] == '\n' || line[lc + 1] == '\0')
 		{
 			if (line[lc + 1] != *token)

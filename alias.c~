@@ -45,19 +45,6 @@ int write_alias(char **argv, char **envp)
  */
 int parse_alias(char **argv, char **envp)
 {
-	int rd_alias, fd_alias;
-	char *config_file_path = malloc(100);
-	char *content = malloc(1024);
-
-	_getenv("HOME", envp, &config_file_path);
-	str_concat(config_file_path, "/.concharc");
-	fd_alias = open(config_file_path, O_RDONLY);
-	while ((rd_alias = read(fd_alias, content, 1024)) > 0)
-	{
-		content[rd_alias] = '\0';
-		printf("%s", content);
-	}
-
 /*	while (*line != '\0')
 	{
 		if (stat == 0)

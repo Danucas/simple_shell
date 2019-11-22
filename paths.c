@@ -62,6 +62,10 @@ int check_builtin(char *command, char **args, char **envp)
 		_cd(args[1], envp);
 		return (0);
 	}
-
+	if (string_cmp("alias", command) == 5 && string_len(command) == 5)
+	{
+		write_alias(args, envp);
+	}
+	parse_alias(args, envp);
 	return (-1);
 }
