@@ -11,7 +11,7 @@ int main(int argc, char **argv, char **envp)
 	char pipe[1024];
 	int pipstat, promptstat;
 	char **list;
-
+	line_t *env;
 	(void) argc;
 	(void) argv;
 
@@ -29,7 +29,9 @@ int main(int argc, char **argv, char **envp)
 			return (0);
 		}
 	}
+	env = get_env_list(envp);
 	promptstat = prompt_loop(argv, envp);
 	(void) promptstat;
+	(void) env;
 	return (0);
 }

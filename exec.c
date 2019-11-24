@@ -6,7 +6,7 @@
  *@env: the evironmet
  *Return: 0 if success
  */
-int run_command(char **list, char *context, char **env)
+int run_command(char **list, char *context, line_t **env)
 {
 	if (execve(list[0], list, env) == -1)
 	{
@@ -23,7 +23,7 @@ int run_command(char **list, char *context, char **env)
  *@env: the evironmet
  *Return: 0 if success
  */
-int run_multiprocess(char **list, char *context, char **env)
+int run_multiprocess(char **list, char *context, line_t **env)
 {
 	for (int i = 0; i < 5; i++)
 	{

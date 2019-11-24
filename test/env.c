@@ -6,9 +6,10 @@
  *@str: Pointer where the result is contained.
  *Return: The variable value.
  */
-char *_getenv(char *var, char **envp, char **str)
+char *_getenv(char *var, line_t **envp, char **str)
 {
 	char *res = *str;
+	line_t env = *envp;
 	int var_len, env_len = 0, counter = 0;
 	int envc = 0;/*Iterate envp.*/
 	int te, comp_l = 0;/*Contain coincidences betwen var and envp.*/
@@ -23,22 +24,22 @@ char *_getenv(char *var, char **envp, char **str)
 	comp[comp_l] = '=';
 	comp[comp_l + 1] = '\0';
 	var_len = string_len(comp);
-	while (envp[envc] != NULL)
+	while (env != NULL)
 	{
-		te = string_cmp(comp, envp[envc]);
+		te = string_cmp(comp, env->string);
 		if (te == var_len)
 		{
 			env_len = var_len;/*Get the variable value.*/
-			while (envp[envc][env_len] != '\0')
+			while ((env->string)[env_len] != '\0')
 			{
-				res[counter] = envp[envc][env_len];
+				res[counter] = (env->string)[env_len];
 				env_len++;
 				counter++;
 			}
 			res[counter] = '\0';
 			return (res);
 		}
-		envc++;
+		env = env->next;
 	}
 	return (NULL);
 }
@@ -49,7 +50,7 @@ char *_getenv(char *var, char **envp, char **str)
  *@value: the new value
  *Return: 1 if success
  */
-int _setenv(char *var, char **envp, char *value)
+int _setenv(char *var, line_t **envp, char *value)
 {
 	int pos = 0;
 	int len;
@@ -74,4 +75,57 @@ int _setenv(char *var, char **envp, char *value)
 	(void) len;
 	(void) value;
 	return (0);
+}
+line_t *add_node(char *s, line_t **head)
+{
+	line_t *l = *head , *new_node;
+	int count = 0, strlen;
+	char *new_string;
+
+	(void) count;
+	strlen = string_len(s);
+	new_node = malloc(sizeof(line_t));
+	new_string = malloc(sizeof(char) * (strlen + 1));
+	str_cpy(s, new_string);
+	new_node->string = new_string;
+	new_node->next = NULL;
+	if (l == NULL)
+	{
+		*head = new_node;
+		return (new_node);
+	}
+	else
+	{
+		while (l != NULL)
+		{
+			if (l->next == NULL)
+			{
+				l->next = new_node;
+				return (new_node);
+			}
+			l = l->next;
+		}
+	}
+	return (new_node);
+}
+
+/**
+ *get_env_list - Get the value of a environment variable.
+ *@var: Variable to set.
+ *@envp: Environmet variable's list.
+ *@value: the new value
+ *Return: 1 if success
+ */
+line_t *get_env_list(char **envp)
+{
+	line_t *env;
+	int pos = 0;
+
+	env = NULL;
+	while (envp[pos] != NULL)
+	{
+		add_node(envp[pos], &env);
+		pos++;
+	}
+	return (env);
 }

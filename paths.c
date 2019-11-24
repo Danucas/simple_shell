@@ -57,6 +57,9 @@ int check_paths(char **paths, char **args, char **envp)
  */
 int check_builtin(char *command, char **args, char **envp)
 {
+	char *context = malloc(100);
+
+	_getenv("_", envp, &context);
 	if (string_cmp("cd", command) == 2 && string_len(command) == 2)
 	{
 		_cd(args[1], envp);
@@ -64,8 +67,17 @@ int check_builtin(char *command, char **args, char **envp)
 	}
 	if (string_cmp("alias", command) == 5 && string_len(command) == 5)
 	{
-		write_alias(args, envp);
+		if (args[1] == NULL)
+			print_alias(envp);
+		else
+		{
+			if (write_alias(args, envp) == -1)
+			{
+				printf("s: s:\n");
+			}
+			return (0);
+		}
 	}
-	parse_alias(args, envp);
+/*	parse_alias(args, envp);*/
 	return (-1);
 }

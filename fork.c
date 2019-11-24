@@ -8,7 +8,7 @@
  *@env: the environment
  *Return: 0 if sucess after child is dead
  */
-int runchildproc(char **process, int time, char *context, char **env)
+int runchildproc(char **process, int time, char *context, line_t **env)
 {
 	pid_t ch_pid;
 	int status, runstat = 0;

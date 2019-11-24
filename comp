@@ -1,3 +1,4 @@
 #!/bin/bash
+echo -e "\e[32mCompiling\e[0m"
 gcc -Wall -Wextra -Werror -pedantic *.c -o concha
 ./copy_to_test

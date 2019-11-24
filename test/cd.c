@@ -11,14 +11,18 @@ int change_dir(char *newpath, char *pwdir, char **envp)
 {
 	char *newpwd = malloc(100);
 	char *tmp;
+	char *context = malloc(100);
+	_getenv("_", envp, &context);
+	printf("context: %s\n", context);
 /*	printf("PWD: %s\nOLDPWD: %s\n", newpath, pwdir);*/
 	if (chdir(newpath) == -1)
 	{
 		tmp = get_current(newpath);
-		printf("%s: cd: %s: ", "./concha", tmp + 1);
+		printf("%s: cd: %s: ", context, tmp + 1);
 		free(tmp);
 		printf("No such file or directory\n");
 		free(newpwd);
+		free(context);
 		return (-1);
 	}
 	newpwd[0] = '\0';
@@ -26,6 +30,7 @@ int change_dir(char *newpath, char *pwdir, char **envp)
 	str_concat(newpwd, newpath);
 /*	printf("newPwd: %s\n", newpwd);*/
 	_setenv("PWD", envp, newpwd);
+	free(context);
 	(void) envp;
 	(void) pwdir;
 	return (1);

@@ -41,13 +41,13 @@ line_t *add_node(char *s, line_t **head)
 	line_t *l = *head , * new_node;
 	int count = 0, strlen;
 	char *new_string;
+
 	(void) count;
 	strlen = string_len(s);
 	new_node = malloc(sizeof(line_t));
 	new_string = malloc(sizeof(char) * (strlen + 1));
-	
 	str_cpy(s, new_string);
-	new_node->arg = new_string;
+	new_node->string = new_string;
 	new_node->next = NULL;
 	if (l == NULL)
 	{

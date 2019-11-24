@@ -10,7 +10,7 @@ void printl(line_t *list)
 
 	while (l != NULL)
 	{
-		printf("%s\n", l->arg);
+		printf("%s\n", l->string);
 		l = l->next;
 	}
 }

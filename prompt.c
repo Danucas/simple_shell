@@ -133,7 +133,7 @@ int parse_and_run(char *arg, char **envp, int hits)
 	}
 	if ((int) cch > 1 && line[0] > 31 && line[0] < 127)
 	{
-		list = _strtok(line, " ");
+		list = _strtok(line, " \n");
 		paths = _strtok(_getenv("PATH", envp, &path), ":");
 		if (check_paths(paths, list, envp) == -1)
 		{
