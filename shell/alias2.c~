@@ -64,12 +64,14 @@ int print_alias(char **envp)
 	char *content = malloc(1024);
 	char **lines;
 
+	printf("printing alias\n");
 	_getenv("HOME", envp, &config_file_path);
 	str_concat(config_file_path, "/.concharc");
 	fd_alias = open(config_file_path, O_RDONLY);
 	rd_alias = read(fd_alias, content, 1024);
 	while (rd_alias > 0)
 	{
+		printf("again\n");
 		fflush(stdout);
 		lines = _strtok(content, "\n");
 		for (int i = 0; lines[i] != NULL; i++)
@@ -80,12 +82,17 @@ int print_alias(char **envp)
 				fflush(stdout);
 			}
 		}
+		printf("freeing\n");
 		free_args(lines);
 		rd_alias = read(fd_alias, content, 1024);
+		printf("dsa\n");
 	}
+	printf("trying wey\n");
+	
 	free(content);
 	free(config_file_path);
 	close(fd_alias);
+	printf("finished\n");
 	return (0);
 }
 

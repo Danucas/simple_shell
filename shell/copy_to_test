@@ -1,0 +1,6 @@
+#!/bin/bash
+ls *.c|
+while read line
+do
+	cp $line test/$line
+done
