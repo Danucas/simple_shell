@@ -6,12 +6,10 @@
  *@str: Pointer where the result is contained.
  *Return: The variable value.
  */
-char *_getenv(char *var, line_t **envp, char **str)
+char *_getenv(char *var, line_t **envp, char **res)
 {
-	char *res = *str;
-	line_t env = *envp;
+	line_t *env = *envp;
 	int var_len, env_len = 0, counter = 0;
-	int envc = 0;/*Iterate envp.*/
 	int te, comp_l = 0;/*Contain coincidences betwen var and envp.*/
 	char comp[100];
 
@@ -30,14 +28,14 @@ char *_getenv(char *var, line_t **envp, char **str)
 		if (te == var_len)
 		{
 			env_len = var_len;/*Get the variable value.*/
-			while ((env->string)[env_len] != '\0')
+			while (*(env->string + env_len) != '\0')
 			{
-				res[counter] = (env->string)[env_len];
+				(*res)[counter] = *(env->string + env_len);
 				env_len++;
 				counter++;
 			}
-			res[counter] = '\0';
-			return (res);
+			(*res)[counter] = '\0';
+			return (*res);
 		}
 		env = env->next;
 	}
@@ -52,22 +50,30 @@ char *_getenv(char *var, line_t **envp, char **str)
  */
 int _setenv(char *var, line_t **envp, char *value)
 {
-	int pos = 0;
 	int len;
-	char *cop = malloc(100);
+	char *cop = malloc(200);
+	line_t *env = *envp, *new_node, *next = *envp;
 
 	str_cpy(var, cop);
 	str_concat(cop, "=");
 	len = string_len(cop);
 /*	printf("Var name: %s\n", cop);*/
-	while (envp[pos] != NULL)
+	while (next != NULL)
 	{
-		if (string_cmp(cop, envp[pos]) == len)
+		if (string_cmp(cop, next->string) == len)
 		{
 /*			printf("match old: %s new: %s\n", envp[pos], value);*/
-			str_cpy(value, envp[pos]);
+			new_node = malloc(sizeof(line_t));
+			new_node->string = str_dup(value);
+			new_node->next = next->next;
+			env->next = new_node;
+			free(next->string);
+			free(next);
+			break;
+
 		}
-		pos++;
+		env = next;
+		next = env->next;
 	}
 	free(cop);
 	free(value);
@@ -128,4 +134,52 @@ line_t *get_env_list(char **envp)
 		pos++;
 	}
 	return (env);
+}
+/**
+*get_env_array - Get the value of a environment variable.
+ *@var: Variable to set.
+ *@envp: Environmet variable's list.
+ *@value: the new value
+ *Return: 1 if success
+ */
+char **get_env_array(line_t **envp)
+{
+	line_t *env = *envp;
+	char **new_env;
+	int size = 0, pos = 0;
+
+	while (env != NULL)
+	{
+		size++;
+		env = env->next;
+	}
+	new_env = malloc(sizeof(char *) * (size + 1));
+	env = *envp;
+	while (env != NULL)
+	{
+		new_env[pos] = env->string;
+		pos++;
+		env = env->next;
+	}
+	new_env[pos] = NULL;
+	return (new_env);
+}
+
+/**
+*free_env - Get the value of a environment variable.
+ *@var: Variable to set.
+ *@envp: Environmet variable's list.
+ *@value: the new value
+ *Return: 1 if success
+ */
+void free_env(line_t **envp)
+{
+	line_t *next;
+	while (*envp != NULL)
+	{
+		next = (*envp)->next;
+		free((*envp)->string);
+		free(*envp);
+		*envp = next;
+	}
 }

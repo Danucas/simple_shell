@@ -1,5 +1,5 @@
 #include "shell_libs.h"
-int parse_and_run(char *arg, char **envp, int hits);
+int parse_and_run(char *arg, line_t **envp, int hits);
 /**
  *handle_format - set the Prompt content
  *@token: token to the value it's beeing asked
@@ -15,7 +15,7 @@ char *handle_format(char *token)
  *@envp: environment variables
  *@prompt: Pointer to the prompt line.
  */
-void getprompt(char **envp, char *prompt)
+void getprompt(line_t **envp, char *prompt)
 {
 	char hostname[30], *copy, *copy2;
 	int p_fd = open("/tmp/prompt_line", O_RDWR | O_CREAT | O_TRUNC, 0644);
@@ -85,7 +85,7 @@ void sig_handler(int signal)
  *@envp: environment variables
  *Return: -1 if  it fails
  */
-int prompt_loop(char **argv, char **envp)
+int prompt_loop(char **argv, line_t **envp)
 {
 	static int enteredhits = 1, parse_stat;
 	char *prompt;
@@ -101,6 +101,7 @@ int prompt_loop(char **argv, char **envp)
 		parse_stat = parse_and_run(argv[0], envp, enteredhits);
 		if (parse_stat == -1)
 		{
+			free_env(envp);
 			exit_shell(&prompt);
 		}
 		enteredhits++;
@@ -115,7 +116,7 @@ int prompt_loop(char **argv, char **envp)
  *@hits: hit counter
  *Return: -1 if  it fails
  */
-int parse_and_run(char *arg, char **envp, int hits)
+int parse_and_run(char *arg, line_t **envp, int hits)
 {
 	char *line;
 	char *path;

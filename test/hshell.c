@@ -30,7 +30,7 @@ int main(int argc, char **argv, char **envp)
 		}
 	}
 	env = get_env_list(envp);
-	promptstat = prompt_loop(argv, envp);
+	promptstat = prompt_loop(argv, &env);
 	(void) promptstat;
 	(void) env;
 	return (0);

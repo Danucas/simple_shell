@@ -74,7 +74,7 @@ int rep_alias(int *al_fd, char **argv, line_t **envp, size_t match)
  */
 int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
 {
-	int line_n = 0, comp_len = 6, counter = 0, ret = 0;
+	int line_n = 0, comp_len = 6, ret = 0;
 	int bufsize = -1;
 	char *buf = malloc(1024);
 	char **lines;
@@ -102,7 +102,7 @@ int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
 			if (string_cmp(comp_line, lines[i]) == comp_len)
 			{
 				printf("match: line %d\n", i);
-				replace_existing_alias(alias_fd, argv, envp, line_n);
+				rep_alias(alias_fd, argv, envp, line_n);
 				ret = line_n;
 				break;
 			}

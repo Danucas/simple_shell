@@ -14,7 +14,7 @@ void str_cpy(char *from, char *to)
 		printf("Unable to copy the string %s\n", (!from) ? "from" : "to");
 		return;
 	}
-	while (from[cont] != '\0' || (from[cont] != '\0' && from[cont + 1] != '3'))
+	while (from[cont] != '\0')
 	{
 		(to)[cont] = from[cont];
 		cont++;

@@ -1,12 +1,12 @@
 #include "shell_libs.h"
 #include <sys/wait.h>
 /**
- *runchildproc - Make a fork and execute a new process.
- *@process: Argument's process.
- *@time: Time while a new process is executed.
- *@context: Shell's main argument.
- *@env: Shell's environment.
- *Return: 0 if sucess after child is closed.
+ *runchildproc - make a fork and execve a new process
+ *@process: the process arguments
+ *@time: some sleep time if we needed
+ *@context: the shell main arg
+ *@env: the environment
+ *Return: 0 if sucess after child is dead
  */
 int runchildproc(char **process, int time, char *context, line_t **env)
 {
@@ -21,7 +21,7 @@ int runchildproc(char **process, int time, char *context, line_t **env)
 	if (ch_pid == 0)
 	{
 	  /*		printf("Wait for me, wait for me\n");*/
-		runstat = execve(process[0], process, env);
+		runstat = execve(process[0], process, get_env_array(env));
 		printf("runstat fork: %d\n", runstat);
 		if (runstat == -1)
 		{

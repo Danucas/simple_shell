@@ -6,7 +6,7 @@
  *@envp: the environment
  *Return: 0 if success
  */
-int check_paths(char **paths, char **args, char **envp)
+int check_paths(char **paths, char **args, line_t **envp)
 {
 	char *copy;
 	int i = 0;
@@ -55,13 +55,14 @@ int check_paths(char **paths, char **args, char **envp)
  *@envp: the environment
  *Return: 0 if success
  */
-int check_builtin(char *command, char **args, char **envp)
+int check_builtin(char *command, char **args, line_t **envp)
 {
 	char *context = malloc(100);
 
 	_getenv("_", envp, &context);
 	if (string_cmp("cd", command) == 2 && string_len(command) == 2)
 	{
+		free(context);
 		_cd(args[1], envp);
 		return (0);
 	}
@@ -75,9 +76,15 @@ int check_builtin(char *command, char **args, char **envp)
 			{
 				printf("s: s:\n");
 			}
+			free(context);
 			return (0);
 		}
 	}
+	if (string_cmp("env", command) == 3 && string_len(command) ==3)
+	{
+		printargs(envp);
+	}
+	free(context);
 /*	parse_alias(args, envp);*/
 	return (-1);
 }

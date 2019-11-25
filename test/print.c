@@ -19,13 +19,13 @@ void printl(line_t *list)
  *printargs - Prints commands list.
  *@args: args to print
  */
-void printargs(char **args)
+void printargs(line_t **args)
 {
-	int counter = 0;
+	line_t *arg = *args;
 
-	while (args[counter] != NULL)
+	while (arg != NULL)
 	{
-		printf("%s\n", args[counter]);
-		counter++;
+		printf("%s\n", arg->string);
+		arg = arg->next;
 	}
 }

@@ -6,13 +6,11 @@
  *@match: configuration file descriptor
  *Return: 0 if success
  */
-int from_backup_to_conf( char **argv, char **envp, size_t  match)
+int from_backup_to_conf(char **argv, line_t **envp, size_t  match)
 {
 	int backup_fd, conf_fd, rd_size;
 	size_t line_t = 0;
-	char *conf_filename = malloc(100);
-	char *buff = malloc(1024);
-	char **lines;
+	char *conf_filename = malloc(100), *buff = malloc(1024), **lines;
 
 	backup_fd = open("/tmp/.concharc", O_RDONLY);
 	printf("backup stat: %d\n", backup_fd);
@@ -37,9 +35,7 @@ int from_backup_to_conf( char **argv, char **envp, size_t  match)
 				}
 			}
 			else
-			{
 				write(conf_fd, lines[i], string_len(lines[i]));
-			}
 			if (lines[i + 1] != NULL)
 				write(conf_fd, "\n", 1);
 		}
@@ -52,12 +48,13 @@ int from_backup_to_conf( char **argv, char **envp, size_t  match)
 	close(conf_fd);
 	return (0);
 }
+
 /**
  *print_alias - coipes conf file to a backup
  *@envp: configuration file descriptor
  *Return: 0 if success
  */
-int print_alias(char **envp)
+int print_alias(line_t **envp)
 {
 	int rd_alias, fd_alias;
 	char *config_file_path = malloc(100);
@@ -96,7 +93,7 @@ int print_alias(char **envp)
  *@match_string: configuration file descriptor
  *Return: 0 if success
  */
-int print_alias_match(char **argv, char **envp, char *match_string)
+int print_alias_match(char **argv, line_t **envp, char *match_string)
 {
 	int rd_alias, fd_alias, ret = 0;
 	char *config_file_path = malloc(100);
@@ -128,4 +125,30 @@ int print_alias_match(char **argv, char **envp, char *match_string)
 	free(config_file_path);
 	close(fd_alias);
 	return (ret);
+}
+
+/**
+ *rd_assgn - Read or asign an alias.
+ *@argv: Argument's list.
+ *@comp_line: Alias line.
+ *Return: 1 if read.
+ */
+int rd_assgn(char **argv, char *comp_line)
+{
+	int comp_len = 6;
+	int counter = 0;
+	int res = 1;
+
+	while (argv[1][counter] != '\0')
+	{
+		comp_line[comp_len] = argv[1][counter];
+		counter++;
+		comp_len++;
+		if (argv[1][counter] == '=')
+		{
+			res = 0;
+			break;
+		}
+	}
+	return (res);
 }

@@ -30,12 +30,16 @@ char *string_rem(char *s1, char *s2);
 
 /*Printing functions*/
 void printl(line_t *list);
-void printargs(char **args);
+void printargs(line_t **args);
 
 /*Environment process*/
 char *_getenv(char *var, line_t **envp, char **str);
 int _setenv(char *var, line_t **envp, char *value);
-line_t *get_env_list(line_t **envp);
+line_t *get_env_list(char **envp);
+char **get_env_array(line_t **envp);
+void free_env(line_t **envp);
+
+
 /*Lexic analizer*/
 int check_paths(char **paths, char **args, line_t **envp);
 int write_alias(char **argv, line_t **envp);
@@ -45,7 +49,7 @@ void free_args(char **args);
 int _gethostname(char *buff, int size);
 void getprompt(line_t **env, char *prompt);
 void exit_shell(char **prompt);
-int prompt_loop(char **argv, char **envp);
+int prompt_loop(char **argv, line_t **envp);
 int runchildproc(char **process, int time, char *context, line_t **env);
 int run_command(char **list, char *context, line_t **env);
 int run_multiprocess(char **list, char *context, line_t **env);
@@ -53,7 +57,8 @@ int run_multiprocess(char **list, char *context, line_t **env);
 int _cd(char *path, line_t **envp);
 int check_builtin(char *command, char **args, line_t **envp);
 int parse_alias(char **args, line_t **envp);
-int from_backup_to_conf(char **argv, char **envp, size_t match);
-int print_alias(char **envp);
-int print_alias_match(char **argv, char **envp, char *match);
+int from_backup_to_conf(char **argv, line_t **envp, size_t match);
+int print_alias(line_t **envp);
+int print_alias_match(char **argv, line_t **envp, char *match);
+int rd_assgn(char **argv, char *comp_line);
 #endif

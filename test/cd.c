@@ -7,7 +7,7 @@ char *get_current(char *fullpath);
  *@envp: env variables
  *Return: 1 if sucess
  */
-int change_dir(char *newpath, char *pwdir, char **envp)
+int change_dir(char *newpath, char *pwdir, line_t **envp)
 {
 	char *newpwd = malloc(100);
 	char *tmp;
@@ -41,7 +41,7 @@ int change_dir(char *newpath, char *pwdir, char **envp)
  *@envp: env variables
  *Return: 1 if sucess
  */
-int _cd(char *path, char **envp)
+int _cd(char *path, line_t **envp)
 {
 /*	printf("starting cd\n");*/
 	int varname_len = string_len("PWD");
