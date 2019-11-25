@@ -24,7 +24,6 @@ int from_backup_to_conf(char **argv, line_t **envp, size_t  match)
 		lines = _strtok(buff, "\n");
 		for (int i = 0; lines[i] != NULL; i++, line_t++)
 		{
-			printf("line %d\n", line_t);
 			if (line_t == match)
 			{
 				for (int j = 0; argv[j] != NULL; j++)
