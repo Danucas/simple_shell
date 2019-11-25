@@ -37,9 +37,7 @@ int from_conf_to_backup(char **argv, line_t **envp, size_t  match)
 				}
 			}
 			else
-			{
 				write(backup_fd, lines[i], string_len(lines[i]));
-			}
 			if (lines[i + 1] != NULL)
 				write(backup_fd, "\n", 1);
 		}
@@ -52,14 +50,14 @@ int from_conf_to_backup(char **argv, line_t **envp, size_t  match)
 	return (0);
 }
 /**
- *replacey_existing_alias - alias
- *@alias_fd: Alias file descriptor
+ *rep_alias - alias
+ *@al_fd: Alias file descriptor
  *@argv: new alias arguments
  *@envp: environment variables
  *@match: matching line index to replace
  *Return: 0 if success
  */
-int replace_existing_alias(int *al_fd, char **argv, line_t **envp, size_t match)
+int rep_alias(int *al_fd, char **argv, line_t **envp, size_t match)
 {
 
 	close(*al_fd);
@@ -69,8 +67,9 @@ int replace_existing_alias(int *al_fd, char **argv, line_t **envp, size_t match)
 }
 /**
  *check_existing_alias - alias
- *@argv: key and value for the alias
- *@envp: key and value for the alias
+ *@alias_fd: File descriptor.
+ *@argv: Key and value for the alias.
+ *@envp: Key and value for the alias.
  *Return: 0 if success
  */
 int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
@@ -83,17 +82,7 @@ int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
 	int just_print = 1;
 
 	str_cpy("alias ", comp_line);
-	while (argv[1][counter] != '\0')
-	{
-		comp_line[comp_len] = argv[1][counter];
-		counter++;
-		comp_len++;
-		if (argv[1][counter] == '=')
-		{
-			just_print = 0;
-			break;
-		}
-	}
+	just_print = rd_assgn(argv, comp_line);
 	if (just_print)
 	{
 		str_concat(comp_line, "=");
@@ -168,9 +157,7 @@ int write_alias(char **argv, line_t **envp)
 		}
 	}
 	if (exists == 2)
-	{
 		return (-1);
-	}
 	close(alias_fd);
 	(void) stat;
 	(void) count;
@@ -206,7 +193,7 @@ int parse_alias(char **argv, line_t **envp)
 	printf("\n");
 	fflush(stdout);
 
-/*	while (*line != '\0')
+/*      while (*line != '\0')
 	{
 		if (stat == 0)
 		{

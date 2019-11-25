@@ -76,9 +76,15 @@ int _setenv(char *var, line_t **envp, char *value)
 	(void) value;
 	return (0);
 }
+/**
+ *add_node -Add a node to linked list.
+ *@s: String to add.
+ *@head: Head of list.
+ *Return: Pointer to a new node.
+ */
 line_t *add_node(char *s, line_t **head)
 {
-	line_t *l = *head , *new_node;
+	line_t *l = *head, *new_node;
 	int count = 0, strlen;
 	char *new_string;
 
@@ -111,9 +117,7 @@ line_t *add_node(char *s, line_t **head)
 
 /**
  *get_env_list - Get the value of a environment variable.
- *@var: Variable to set.
  *@envp: Environmet variable's list.
- *@value: the new value
  *Return: 1 if success
  */
 line_t *get_env_list(char **envp)
