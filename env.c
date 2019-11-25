@@ -3,7 +3,7 @@
  *_getenv - Get the value of a environment variable.
  *@var: Variable to get.
  *@envp: Environmet variable's list.
- *@str: Pointer where the result is contained.
+ *@res: Pointer where the result is contained.
  *Return: The variable value.
  */
 char *_getenv(char *var, line_t **envp, char **res)
@@ -82,9 +82,16 @@ int _setenv(char *var, line_t **envp, char *value)
 	(void) value;
 	return (0);
 }
+/**
+ *add_node - Add a node.
+ *@s: String to add.
+ *@head: Head of node.
+ *Return: New node.
+ */
+
 line_t *add_node(char *s, line_t **head)
 {
-	line_t *l = *head , *new_node;
+	line_t *l = *head, *new_node;
 	int count = 0, strlen;
 	char *new_string;
 
@@ -117,9 +124,7 @@ line_t *add_node(char *s, line_t **head)
 
 /**
  *get_env_list - Get the value of a environment variable.
- *@var: Variable to set.
  *@envp: Environmet variable's list.
- *@value: the new value
  *Return: 1 if success
  */
 line_t *get_env_list(char **envp)
@@ -136,11 +141,9 @@ line_t *get_env_list(char **envp)
 	return (env);
 }
 /**
-*get_env_array - Get the value of a environment variable.
- *@var: Variable to set.
+ *get_env_array - Get the value of a environment variable.
  *@envp: Environmet variable's list.
- *@value: the new value
- *Return: 1 if success
+ *Return: 1 if success.
  */
 char **get_env_array(line_t **envp)
 {
@@ -163,23 +166,4 @@ char **get_env_array(line_t **envp)
 	}
 	new_env[pos] = NULL;
 	return (new_env);
-}
-
-/**
-*free_env - Get the value of a environment variable.
- *@var: Variable to set.
- *@envp: Environmet variable's list.
- *@value: the new value
- *Return: 1 if success
- */
-void free_env(line_t **envp)
-{
-	line_t *next;
-	while (*envp != NULL)
-	{
-		next = (*envp)->next;
-		free((*envp)->string);
-		free(*envp);
-		*envp = next;
-	}
 }

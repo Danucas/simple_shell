@@ -13,7 +13,7 @@ int check_token(char *line, char *token)
 	while (token[pos] != '\0')
 	{
 		if (*line == token[pos])
-			return(1);
+			return (1);
 		pos++;
 	}
 	return (0);

@@ -12,6 +12,7 @@ int change_dir(char *newpath, char *pwdir, line_t **envp)
 	char *newpwd = malloc(100);
 	char *tmp;
 	char *context = malloc(100);
+
 	_getenv("_", envp, &context);
 	printf("context: %s\n", context);
 /*	printf("PWD: %s\nOLDPWD: %s\n", newpath, pwdir);*/
