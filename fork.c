@@ -1,12 +1,12 @@
 #include "shell_libs.h"
 #include <sys/wait.h>
 /**
- *runchildproc - make a fork and execve a new process
- *@process: the process arguments
- *@time: some sleep time if we needed
- *@context: the shell main arg
- *@env: the environment
- *Return: 0 if sucess after child is dead
+ *runchildproc - Make a fork and execute a new process.
+ *@process: Argument's process.
+ *@time: Time while a new process is executed.
+ *@context: Shell's main argument.
+ *@env: Shell's environment.
+ *Return: 0 if sucess after child is closed.
  */
 int runchildproc(char **process, int time, char *context, line_t **env)
 {
