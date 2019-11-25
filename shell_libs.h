@@ -8,8 +8,8 @@
 #include <fcntl.h>
 #include <signal.h>
 /**
- *struct Envl - simple string struct for a linked list
- *@arg:  the string
+ *struct String - simple string struct for a linked list
+ *@string:  the string
  *@next: the pointer to the next node
  *Description: node for a string linked list
  */
