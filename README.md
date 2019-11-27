@@ -18,7 +18,7 @@ Tell people where they can go to for help. It can be any combination of an issue
 
 ### Flowchart.
 
-![Flowchart](Simple Shell Flowchart.jpg)
+![Flowchart](Simple_Shell_Flowchart.jpg)
 
 #### Contributing.
 State if you are open to contributions and what your requirements are for accepting them.
