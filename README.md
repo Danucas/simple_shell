@@ -16,9 +16,9 @@ Use examples liberally, and show the expected output if you can. It's helpful to
 ### Support.
 Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
 
-### Roadmap - Flowchart.
-If you have ideas for releases in the future, it is a good idea to list them.
+### Flowchart.
 
+![Flowchart](Simple Shell Flowchart.jpg)
 
 #### Contributing.
 State if you are open to contributions and what your requirements are for accepting them.
