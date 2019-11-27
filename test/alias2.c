@@ -13,11 +13,15 @@ int from_backup_to_conf(char **argv, line_t **envp, size_t  match)
 	char *conf_filename = malloc(100), *buff = malloc(1024), **lines;
 
 	backup_fd = open("/tmp/.concharc", O_RDONLY);
-	_printf("backup stat: %d\n", backup_fd);
+	_printf("backup stat: ");
+	print_dec(backup_fd);
+	_printf("\n");
 	_getenv("HOME", envp, &conf_filename);
 	str_concat(conf_filename, "/.concharc");
 	conf_fd = open(conf_filename, O_WRONLY | O_CREAT | O_TRUNC, 0755);
-	_printf("conf stat: %d\n", conf_fd);
+	_printf("conf stat: ");
+	print_dec(conf_fd);
+	_printf("\n");
 	rd_size = read(backup_fd, buff, 1024);
 	while (rd_size > 0)
 	{
@@ -72,7 +76,8 @@ int print_alias(line_t **envp)
 		{
 			if (string_cmp("alias ", lines[i]) == 6)
 			{
-				_printf("%s\n", lines[i]);
+				_printf(lines[i]);
+				_printf("\n");
 				fflush(stdout);
 			}
 		}
@@ -112,7 +117,8 @@ int print_alias_match(char **argv, line_t **envp, char *match_string)
 		{
 			if (string_cmp(match_string, lines[i]) == string_len(match_string))
 			{
-				_printf("%s\n", lines[i]);
+				_printf(lines[i]);
+				_printf("\n");
 				fflush(stdout);
 				ret = 2;
 			}

@@ -10,16 +10,18 @@ int from_conf_to_backup(char **argv, line_t **envp, size_t  match)
 {
 	int backup_fd, conf_fd, rd_size;
 	size_t line_t = 0;
-	char *conf_filename = malloc(100);
-	char *buff = malloc(1024);
-	char **lines;
+	char *conf_filename = malloc(100), *buff = malloc(1024), **lines;
 
 	backup_fd = open("/tmp/.concharc",  O_WRONLY | O_CREAT | O_TRUNC, 0755);
-	_printf("backup stat: %d\n", backup_fd);
+	_printf("backup stat: ");
+	print_dec(backup_fd);
+	_printf("\n");
 	_getenv("HOME", envp, &conf_filename);
 	str_concat(conf_filename, "/.concharc");
 	conf_fd = open(conf_filename, O_RDONLY);
-	_printf("conf stat: %d\n", conf_fd);
+	_printf("conf stat: ");
+	print_dec(conf_fd);
+	_printf("\n");
 	rd_size = read(conf_fd, buff, 1024);
 	while (rd_size > 0)
 	{
@@ -44,8 +46,7 @@ int from_conf_to_backup(char **argv, line_t **envp, size_t  match)
 		rd_size = read(conf_fd, buff, 1024);
 	}
 	free(buff);
-	close(backup_fd);
-	close(conf_fd);
+	close_two(backup_fd, conf_fd);
 	return (0);
 }
 /**
@@ -87,7 +88,6 @@ int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
 		str_concat(comp_line, "=");
 		return (print_alias_match(argv, envp, comp_line));
 	}
-	_printf("just: %d\n", just_print);
 	comp_len = string_len(comp_line);
 	bufsize = read(*alias_fd, buf, 1024);
 	while (bufsize > 0)
@@ -96,11 +96,8 @@ int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
 		lines = _strtok(buf, "\n");
 		for (int i = 0; lines[i] != NULL; i++, line_n++)
 		{
-			_printf("line %d:  %s\n", i, lines[i]);
-			_printf("%d %d\n", string_cmp(comp_line, lines[i]), comp_len);
 			if (string_cmp(comp_line, lines[i]) == comp_len)
 			{
-				_printf("match: line %d\n", i);
 				rep_alias(alias_fd, argv, envp, line_n);
 				ret = line_n;
 				break;
@@ -109,8 +106,7 @@ int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
 		free_args(lines);
 		bufsize = read(*alias_fd, buf, 1024);
 	}
-	free(buf);
-	free(comp_line);
+	free_two(buf, comp_line);
 	(void) envp;
 	return (ret);
 }
@@ -132,7 +128,6 @@ int write_alias(char **argv, line_t **envp)
 		exists = 1;
 	if (alias_fd == -1)
 	{
-		_printf("Creating /.concha config file \n");
 		alias_fd = open(config_file_path, O_WRONLY | O_APPEND | O_CREAT, 0755);
 		if (alias_fd < 0)
 			_printf("Error: Can't open file\n");
@@ -149,7 +144,7 @@ int write_alias(char **argv, line_t **envp)
 		wr = write(alias_fd, "\n", 1);
 		for (int i = 0; argv[i] != NULL; i++)
 		{
-			_printf("args: %s\n", argv[i]);
+/*			_printf("args: %s\n", argv[i]);*/
 			wr = write(alias_fd, argv[i], string_len(argv[i]));
 			if (argv[i + 1] != NULL)
 				write(alias_fd, " ", 1);
@@ -186,40 +181,11 @@ int parse_alias(char **argv, line_t **envp)
 	while ((rd_alias = read(fd_alias, content, 1024)) > 0)
 	{
 		content[rd_alias] = '\0';
-		_printf("%s", content);
+		_printf(content);
 		fflush(stdout);
 	}
 	_printf("\n");
 	fflush(stdout);
-
-/*      while (*line != '\0')
-	{
-		if (stat == 0)
-		{
-			if (*line == '=')
-			{
-				al[ct + 5] = '\0';
-				stat = 1;
-			}
-			else
-			{
-				al[ct + 5] = *line;
-			}
-		}
-		else
-		{
-		int i;
-			for (i = 0; *line != '\0'; i++, line++)
-			{
-				cm[i] = *line;
-			}
-			cm[i] = '\0';
-			break;
-		}
-		ct++;
-		line++;
-	}
-*/
 	(void) argv;
 	(void) envp;
 	return (0);

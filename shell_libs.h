@@ -31,6 +31,9 @@ char *string_rem(char *s1, char *s2);
 /*Printing functions*/
 void printl(line_t *list);
 void printargs(line_t **args);
+int _printf(char *string);
+int print_dec(int n);
+int _put(int c);
 
 /*Environment process*/
 char *_getenv(char *var, line_t **envp, char **str);
@@ -53,6 +56,7 @@ int prompt_loop(char **argv, line_t **envp);
 int runchildproc(char **process, int time, char *context, line_t **env);
 int run_command(char **list, char *context, line_t **env);
 int run_multiprocess(char **list, char *context, line_t **env);
+
 /*Built in functions*/
 int _cd(char *path, line_t **envp);
 int check_builtin(char *command, char **args, line_t **envp);
@@ -62,5 +66,6 @@ int print_alias(line_t **envp);
 int print_alias_match(char **argv, line_t **envp, char *match);
 int rd_assgn(char **argv, char *comp_line);
 
-int _printf(char *string);
+void free_two(char *one, char *two);
+int close_two(int one, int two);
 #endif

@@ -14,3 +14,13 @@ void free_args(char **args)
 	}
 	free(args);
 }
+/**
+ *free_two - free arguments list
+ *@one: the args to free
+ *@two: the args to free
+ */
+void free_two(char *one, char *two)
+{
+	free(one);
+	free(two);
+}

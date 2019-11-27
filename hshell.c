@@ -21,10 +21,17 @@ int main(int argc, char **argv, char **envp)
 		if (pipstat > 0)
 		{
 			pipe[pipstat - 1] = '\0';
-			_printf("%s\n", pipe);
+			_printf(pipe);
+			_printf("\n");
 			list = _strtok(pipe, " ");
 			if (execve(list[0], list, envp) == -1)
-				_printf("%s: 1: %s: not found\n", argv[0], list[0]);
+			{
+				_printf(argv[0]);
+				_printf(": ");
+				_printf("1: ");
+				_printf(list[0]);
+				_printf(": not found\n");
+			}
 			free_args(list);
 			return (0);
 		}

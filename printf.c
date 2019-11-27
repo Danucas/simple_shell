@@ -1,9 +1,8 @@
-#include "shell_libs.c"
-int checklist(va_list *ap, const char *format);
+#include "shell_libs.h"
 /**
  *_printf - the printf, handled data formats prints as characters and
  *return the character count
- *@format: format string
+ *@string: format string
  *Return: characters printed
  */
 int _printf(char *string)

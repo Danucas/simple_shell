@@ -75,7 +75,8 @@ void sig_handler(int signal)
 	close(p_fd);
 	_printf("\n");
 	fflush(stdout);
-	_printf("%s$ ", last_line);
+	_printf(last_line);
+	_printf("$ ");
 	fflush(stdout);
 	free(last_line);
 }
@@ -95,7 +96,7 @@ int prompt_loop(char **argv, line_t **envp)
 	while (1)
 	{
 		getprompt(envp, prompt);
-		_printf("%s", prompt);
+		_printf(prompt);
 		_printf("$ ");
 		fflush(stdout);
 		parse_stat = parse_and_run(argv[0], envp, enteredhits);
@@ -138,7 +139,12 @@ int parse_and_run(char *arg, line_t **envp, int hits)
 		paths = _strtok(_getenv("PATH", envp, &path), ":");
 		if (check_paths(paths, list, envp) == -1)
 		{
-			_printf("%s: %d: %s: not found\n", arg, hits, list[0]);
+			_printf(arg);
+			_printf(": ");
+			print_dec(hits);
+			_printf(": ");
+			_printf(list[0]);
+			_printf(": not found\n");
 		}
 		free_args(list);
 		free_args(paths);

@@ -1,11 +1,7 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdarg.h>
-#include "holberton.h"
+#include "shell_libs.h"
 /**
  *print_dec - fdsfd
- *@list: fdsf
- *@n: state
+ *@numb: state
  *Return: count
  */
 int print_dec(int numb)
@@ -14,13 +10,11 @@ int print_dec(int numb)
 
 	if (digits == 0)
 	{
-		if (n == 0)
 		_put('0');
 		i = 1;
 	}
 	else if (digits < 0)
 	{
-		if (n == 0)
 		_put('-');
 		digits *= -1;
 		i = 1;
@@ -35,7 +29,6 @@ int print_dec(int numb)
 		while (factor > 1)
 		{
 			factor /= 10;
-			if (n == 0)
 			_put('0' + (digits / factor));
 			digits %= factor;
 			i++;

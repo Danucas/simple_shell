@@ -14,12 +14,15 @@ int change_dir(char *newpath, char *pwdir, line_t **envp)
 	char *context = malloc(100);
 
 	_getenv("_", envp, &context);
-	_printf("context: %s\n", context);
 /*	_printf("PWD: %s\nOLDPWD: %s\n", newpath, pwdir);*/
 	if (chdir(newpath) == -1)
 	{
 		tmp = get_current(newpath);
-		_printf("%s: cd: %s: ", context, tmp + 1);
+		_printf(context);
+		_printf(": ");
+		_printf("cd: ");
+		_printf(tmp + 1);
+		_printf(": ");
 		free(tmp);
 		_printf("No such file or directory\n");
 		free(newpwd);
