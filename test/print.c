@@ -11,7 +11,7 @@ void printl(line_t *list)
 	while (l != NULL)
 	{
 		_printf(l->string);
-		_printf("\n"); 
+		_printf("\n");
 		l = l->next;
 	}
 }

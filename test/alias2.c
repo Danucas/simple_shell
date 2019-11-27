@@ -45,10 +45,8 @@ int from_backup_to_conf(char **argv, line_t **envp, size_t  match)
 		free_args(lines);
 		rd_size = read(backup_fd, buff, 1024);
 	}
-	free(buff);
-	free(conf_filename);
-	close(backup_fd);
-	close(conf_fd);
+	free_two(buff, conf_filename);
+	close_two(backup_fd, conf_fd);
 	return (0);
 }
 

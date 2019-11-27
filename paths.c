@@ -24,9 +24,6 @@ int check_paths(char **paths, char **args, line_t **envp)
 		free(copy);
 		return (0);
 	}
-	runstatus = stat(command, state);
-	if (runstatus == 0)
-		runstatus = runchildproc(args, 0, command, envp);
 	free(args[0]);
 	while (paths[i] != NULL)
 	{

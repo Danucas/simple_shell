@@ -10,9 +10,7 @@ int from_conf_to_backup(char **argv, line_t **envp, size_t  match)
 {
 	int backup_fd, conf_fd, rd_size;
 	size_t line_t = 0;
-	char *conf_filename = malloc(100);
-	char *buff = malloc(1024);
-	char **lines;
+	char *conf_filename = malloc(100), *buff = malloc(1024), **lines;
 
 	backup_fd = open("/tmp/.concharc",  O_WRONLY | O_CREAT | O_TRUNC, 0755);
 	_printf("backup stat: ");
@@ -48,8 +46,7 @@ int from_conf_to_backup(char **argv, line_t **envp, size_t  match)
 		rd_size = read(conf_fd, buff, 1024);
 	}
 	free(buff);
-	close(backup_fd);
-	close(conf_fd);
+	close_two(backup_fd, conf_fd);
 	return (0);
 }
 /**
@@ -99,11 +96,8 @@ int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
 		lines = _strtok(buf, "\n");
 		for (int i = 0; lines[i] != NULL; i++, line_n++)
 		{
-			/*		_printf("line %d:  %s\n", i, lines[i]);
-					_printf("%d %d\n", string_cmp(comp_line, lines[i]), comp_len);*/
 			if (string_cmp(comp_line, lines[i]) == comp_len)
 			{
-/*				_printf("match: line %d\n", i);*/
 				rep_alias(alias_fd, argv, envp, line_n);
 				ret = line_n;
 				break;
@@ -112,8 +106,7 @@ int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
 		free_args(lines);
 		bufsize = read(*alias_fd, buf, 1024);
 	}
-	free(buf);
-	free(comp_line);
+	free_two(buf, comp_line);
 	(void) envp;
 	return (ret);
 }
