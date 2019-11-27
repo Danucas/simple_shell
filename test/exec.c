@@ -10,7 +10,7 @@ int run_command(char **list, char *context, line_t **env)
 {
 	if (execve(list[0], list, get_env_array(env)) == -1)
 	{
-		/*	printf("%s: 1: %s: not found\n", context, list[0]);*/
+		/*	_printf("%s: 1: %s: not found\n", context, list[0]);*/
 		return (-1);
 	}
 	(void) context;

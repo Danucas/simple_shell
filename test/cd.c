@@ -14,14 +14,14 @@ int change_dir(char *newpath, char *pwdir, line_t **envp)
 	char *context = malloc(100);
 
 	_getenv("_", envp, &context);
-	printf("context: %s\n", context);
-/*	printf("PWD: %s\nOLDPWD: %s\n", newpath, pwdir);*/
+	_printf("context: %s\n", context);
+/*	_printf("PWD: %s\nOLDPWD: %s\n", newpath, pwdir);*/
 	if (chdir(newpath) == -1)
 	{
 		tmp = get_current(newpath);
-		printf("%s: cd: %s: ", context, tmp + 1);
+		_printf("%s: cd: %s: ", context, tmp + 1);
 		free(tmp);
-		printf("No such file or directory\n");
+		_printf("No such file or directory\n");
 		free(newpwd);
 		free(context);
 		return (-1);
@@ -29,7 +29,7 @@ int change_dir(char *newpath, char *pwdir, line_t **envp)
 	newpwd[0] = '\0';
 	str_cpy("PWD=", newpwd);
 	str_concat(newpwd, newpath);
-/*	printf("newPwd: %s\n", newpwd);*/
+/*	_printf("newPwd: %s\n", newpwd);*/
 	_setenv("PWD", envp, newpwd);
 	free(context);
 	(void) envp;
@@ -44,7 +44,7 @@ int change_dir(char *newpath, char *pwdir, line_t **envp)
  */
 int _cd(char *path, line_t **envp)
 {
-/*	printf("starting cd\n");*/
+/*	_printf("starting cd\n");*/
 	int varname_len = string_len("PWD");
 	int evc = 0;
 	char *pwdir = malloc(sizeof(char) * 200);
@@ -52,14 +52,14 @@ int _cd(char *path, line_t **envp)
 	char *tmp;
 	(void) evc;
 	(void) varname_len;
-/*	printf("before pwd\n");*/
+/*	_printf("before pwd\n");*/
 	_getenv("PWD", envp, &pwdir);
-/*	printf("before cpy pwd\n");*/
+/*	_printf("before cpy pwd\n");*/
 /*	str_cpy("PWD=", newpath);*/
-/*	printf("starting cd\n");*/
+/*	_printf("starting cd\n");*/
 	if (path == NULL)
 	{
-		printf("No path, would go HOME\n");
+		_printf("No path, would go HOME\n");
 		free(pwdir);
 		free(newpath);
 		return (0);
@@ -79,13 +79,13 @@ int _cd(char *path, line_t **envp)
 			free(pwdir);
 			return (0);
 		}
-/*		printf("%d\n", __LINE__);*/
+/*		_printf("%d\n", __LINE__);*/
 		str_cpy(pwdir, newpath);
-/*		printf("%d %s\n", __LINE__, newpath);*/
+/*		_printf("%d %s\n", __LINE__, newpath);*/
 		tmp = get_current(newpath);
 		string_rem(tmp, newpath);
-/*		printf("%d\n", __LINE__);*/
-/*		printf("%d %s\n", __LINE__, newpath);*/
+/*		_printf("%d\n", __LINE__);*/
+/*		_printf("%d %s\n", __LINE__, newpath);*/
 		change_dir(newpath, pwdir, envp);
 		free(tmp);
 	}

@@ -61,4 +61,6 @@ int from_backup_to_conf(char **argv, line_t **envp, size_t match);
 int print_alias(line_t **envp);
 int print_alias_match(char **argv, line_t **envp, char *match);
 int rd_assgn(char **argv, char *comp_line);
+
+int _printf(char *string);
 #endif

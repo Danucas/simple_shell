@@ -1,0 +1,7 @@
+#!/bin/bash
+ls *.c |
+while read file
+do
+    echo checking $file
+    cat $file | grep -Hn $1
+done

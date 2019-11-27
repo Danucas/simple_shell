@@ -74,7 +74,7 @@ int check_builtin(char *command, char **args, line_t **envp)
 		{
 			if (write_alias(args, envp) == -1)
 			{
-				printf("s: s:\n");
+				write(STDERR_FILENO, "1", 1);
 			}
 			free(context);
 			return (0);

@@ -57,12 +57,12 @@ int _setenv(char *var, line_t **envp, char *value)
 	str_cpy(var, cop);
 	str_concat(cop, "=");
 	len = string_len(cop);
-/*	printf("Var name: %s\n", cop);*/
+/*	_printf("Var name: %s\n", cop);*/
 	while (next != NULL)
 	{
 		if (string_cmp(cop, next->string) == len)
 		{
-/*			printf("match old: %s new: %s\n", envp[pos], value);*/
+/*			_printf("match old: %s new: %s\n", envp[pos], value);*/
 			new_node = malloc(sizeof(line_t));
 			new_node->string = str_dup(value);
 			new_node->next = next->next;

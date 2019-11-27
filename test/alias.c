@@ -15,11 +15,11 @@ int from_conf_to_backup(char **argv, line_t **envp, size_t  match)
 	char **lines;
 
 	backup_fd = open("/tmp/.concharc",  O_WRONLY | O_CREAT | O_TRUNC, 0755);
-	printf("backup stat: %d\n", backup_fd);
+	_printf("backup stat: %d\n", backup_fd);
 	_getenv("HOME", envp, &conf_filename);
 	str_concat(conf_filename, "/.concharc");
 	conf_fd = open(conf_filename, O_RDONLY);
-	printf("conf stat: %d\n", conf_fd);
+	_printf("conf stat: %d\n", conf_fd);
 	rd_size = read(conf_fd, buff, 1024);
 	while (rd_size > 0)
 	{
@@ -87,7 +87,7 @@ int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
 		str_concat(comp_line, "=");
 		return (print_alias_match(argv, envp, comp_line));
 	}
-	printf("just: %d\n", just_print);
+	_printf("just: %d\n", just_print);
 	comp_len = string_len(comp_line);
 	bufsize = read(*alias_fd, buf, 1024);
 	while (bufsize > 0)
@@ -96,11 +96,11 @@ int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
 		lines = _strtok(buf, "\n");
 		for (int i = 0; lines[i] != NULL; i++, line_n++)
 		{
-			printf("line %d:  %s\n", i, lines[i]);
-			printf("%d %d\n", string_cmp(comp_line, lines[i]), comp_len);
+			_printf("line %d:  %s\n", i, lines[i]);
+			_printf("%d %d\n", string_cmp(comp_line, lines[i]), comp_len);
 			if (string_cmp(comp_line, lines[i]) == comp_len)
 			{
-				printf("match: line %d\n", i);
+				_printf("match: line %d\n", i);
 				rep_alias(alias_fd, argv, envp, line_n);
 				ret = line_n;
 				break;
@@ -132,14 +132,14 @@ int write_alias(char **argv, line_t **envp)
 		exists = 1;
 	if (alias_fd == -1)
 	{
-		printf("Creating /.concha config file \n");
+		_printf("Creating /.concha config file \n");
 		alias_fd = open(config_file_path, O_WRONLY | O_APPEND | O_CREAT, 0755);
 		if (alias_fd < 0)
-			printf("Error: Can't open file\n");
+			_printf("Error: Can't open file\n");
 		wr = write(alias_fd, "#concha shell configuration file\n", 33);
 		write(alias_fd, "echo config done", 16);
 		if (wr < 0)
-			printf("Can't write to the file\n");
+			_printf("Can't write to the file\n");
 	}
 	if (exists)
 		exists = check_existing_alias(&alias_fd, argv, envp);
@@ -149,7 +149,7 @@ int write_alias(char **argv, line_t **envp)
 		wr = write(alias_fd, "\n", 1);
 		for (int i = 0; argv[i] != NULL; i++)
 		{
-			printf("args: %s\n", argv[i]);
+			_printf("args: %s\n", argv[i]);
 			wr = write(alias_fd, argv[i], string_len(argv[i]));
 			if (argv[i + 1] != NULL)
 				write(alias_fd, " ", 1);
@@ -186,10 +186,10 @@ int parse_alias(char **argv, line_t **envp)
 	while ((rd_alias = read(fd_alias, content, 1024)) > 0)
 	{
 		content[rd_alias] = '\0';
-		printf("%s", content);
+		_printf("%s", content);
 		fflush(stdout);
 	}
-	printf("\n");
+	_printf("\n");
 	fflush(stdout);
 
 /*      while (*line != '\0')

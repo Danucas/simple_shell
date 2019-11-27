@@ -20,9 +20,9 @@ int runchildproc(char **process, int time, char *context, line_t **env)
 	}
 	if (ch_pid == 0)
 	{
-	  /*		printf("Wait for me, wait for me\n");*/
+	  /*		_printf("Wait for me, wait for me\n");*/
 		runstat = execve(process[0], process, get_env_array(env));
-		printf("runstat fork: %d\n", runstat);
+		_printf("runstat fork: %d\n", runstat);
 		if (runstat == -1)
 		{
 			return (-1);
@@ -32,7 +32,7 @@ int runchildproc(char **process, int time, char *context, line_t **env)
 	else
 	{
 		wait(&status);
-		/*		printf("I'am your father\n");*/
+		/*		_printf("I'am your father\n");*/
 	}
 	(void) time;
 	(void) context;

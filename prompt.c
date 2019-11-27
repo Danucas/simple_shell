@@ -48,7 +48,7 @@ void getprompt(line_t **envp, char *prompt)
 	prompt = str_concat(prompt, "\033[0m");
 	if (write(p_fd, prompt, string_len(prompt)) == -1)
 	{
-		printf("pailas tmp\n");
+		_printf("pailas tmp\n");
 	}
 	close(p_fd);
 	free(copy);
@@ -69,13 +69,13 @@ void sig_handler(int signal)
 
 	if (rd == -1)
 	{
-		printf("no such last line\n");
+		_printf("no such last line\n");
 	}
 	last_line[rd] = '\0';
 	close(p_fd);
-	printf("\n");
+	_printf("\n");
 	fflush(stdout);
-	printf("%s$ ", last_line);
+	_printf("%s$ ", last_line);
 	fflush(stdout);
 	free(last_line);
 }
@@ -95,8 +95,8 @@ int prompt_loop(char **argv, line_t **envp)
 	while (1)
 	{
 		getprompt(envp, prompt);
-		printf("%s", prompt);
-		printf("$ ");
+		_printf("%s", prompt);
+		_printf("$ ");
 		fflush(stdout);
 		parse_stat = parse_and_run(argv[0], envp, enteredhits);
 		if (parse_stat == -1)
@@ -138,7 +138,7 @@ int parse_and_run(char *arg, line_t **envp, int hits)
 		paths = _strtok(_getenv("PATH", envp, &path), ":");
 		if (check_paths(paths, list, envp) == -1)
 		{
-			printf("%s: %d: %s: not found\n", arg, hits, list[0]);
+			_printf("%s: %d: %s: not found\n", arg, hits, list[0]);
 		}
 		free_args(list);
 		free_args(paths);

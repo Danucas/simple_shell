@@ -6,6 +6,6 @@
 void exit_shell(char **prompt)
 {
 	free(*prompt);
-	printf("\n");
+	_printf("\n");
 	exit(0);
 }

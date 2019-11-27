@@ -27,13 +27,13 @@ size_t _getline(char **line)
 
 	if (*line == NULL)
 	{
-		printf("Line is NULL\n");
+		_printf("Line is NULL\n");
 		return (-1);
 	}
 	while (1)
 	{
 		fflush(stdout);/*In case that standard output is open.*/
-/*		printf("args: %s\n", initial);*/
+/*		_printf("args: %s\n", initial);*/
 		count = read(STDIN_FILENO, *line, 1024);
 		if (count < 1)
 		{
