@@ -28,7 +28,7 @@ Is a program that takes commands from the keyboard and gives them to the operati
 
 -Use system calls only when you need to.
 
-###List of allowed functions and system calls.
+### List of allowed functions and system calls.
 
 -access (man 2 access)
 
