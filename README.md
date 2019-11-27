@@ -30,16 +30,18 @@ Use system calls only when you need to.
 
 ### Run.
 ```bash
-./concha
+$ ./concha
 ```
 
 ### Usage.
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-### Installation.
+````bash
+$ ls
+#man_1_simple_shell#	    Simple_Shell_Flowchart.jpg	comp	      fork.c		ls		    put.c	    tokens.c
+AUTHORS			    					          a.out				    		    concha       free.c  man_1_simple_shell  remove_deleted  tty
+```
 
 ### Support.
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+1299@holbertonschool.com, danrodcastillo1994@gmail.com
 
 ### Our Flowchart.
 
