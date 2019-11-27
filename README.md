@@ -10,23 +10,28 @@ Is a program that takes commands from the keyboard and gives them to the operati
 
 # Requirements
 # General
-Allowed editors: vi, vim, emacs
+Allowed editors: vi, vim, emacs.
 
-All your files will be compiled on Ubuntu 14.04 LTS
+All your files will be compiled on Ubuntu 14.04 LTS.
 
-Your C programs and functions will be compiled with gcc 4.8.4 using the flags -Wall -Werror -Wextra and -pedantic
+Your C programs and functions will be compiled with gcc 4.8.4 using the flags -Wall -Werror -Wextra and -pedantic.
 
-All your files should end with a new line
+All your files should end with a new line.
 
-A README.md file, at the root of the folder of the project is mandatory
+A README.md file, at the root of the folder of the project is mandatory.
 
-Your code should use the Betty style. It will be checked using betty-style.pl and betty-doc.pl
+Your code should use the Betty style. It will be checked using betty-style.pl and betty-doc.pl.
 
-No more than 5 functions per file
+No more than 5 functions per file.
 
-All your header files should be include guarded
+All your header files should be include guarded.
 
 Use system calls only when you need to.
+
+### Run.
+```bash
+./concha
+```
 
 ### Usage.
 Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
