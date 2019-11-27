@@ -3,9 +3,10 @@
  *exit_shell - shell main
  *@prompt: Args count.
  */
-void exit_shell(char **prompt)
+void exit_shell(int code)
 {
-	free(*prompt);
+	char c = code;
 	_printf("\n");
+	write(STDERR_FILENO, &c, 1);
 	exit(0);
 }

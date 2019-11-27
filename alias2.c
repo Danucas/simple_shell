@@ -8,7 +8,7 @@
  */
 int from_backup_to_conf(char **argv, line_t **envp, size_t  match)
 {
-	int backup_fd, conf_fd, rd_size;
+	int backup_fd, conf_fd, rd_size, i, j;
 	size_t line_t = 0;
 	char *conf_filename = malloc(100), *buff = malloc(1024), **lines;
 
@@ -26,11 +26,11 @@ int from_backup_to_conf(char **argv, line_t **envp, size_t  match)
 	while (rd_size > 0)
 	{
 		lines = _strtok(buff, "\n");
-		for (int i = 0; lines[i] != NULL; i++, line_t++)
+		for (i = 0; lines[i] != NULL; i++, line_t++)
 		{
 			if (line_t == match)
 			{
-				for (int j = 0; argv[j] != NULL; j++)
+				for (j = 0; argv[j] != NULL; j++)
 				{
 					write(conf_fd, argv[j], string_len(argv[j]));
 					if (argv[j + 1] != NULL)
@@ -57,7 +57,7 @@ int from_backup_to_conf(char **argv, line_t **envp, size_t  match)
  */
 int print_alias(line_t **envp)
 {
-	int rd_alias, fd_alias;
+	int rd_alias, fd_alias, i;
 	char *config_file_path = malloc(100);
 	char *content = malloc(1024);
 	char **lines;
@@ -70,7 +70,7 @@ int print_alias(line_t **envp)
 	{
 		fflush(stdout);
 		lines = _strtok(content, "\n");
-		for (int i = 0; lines[i] != NULL; i++)
+		for (i = 0; lines[i] != NULL; i++)
 		{
 			if (string_cmp("alias ", lines[i]) == 6)
 			{
@@ -97,7 +97,7 @@ int print_alias(line_t **envp)
  */
 int print_alias_match(char **argv, line_t **envp, char *match_string)
 {
-	int rd_alias, fd_alias, ret = 0;
+	int rd_alias, fd_alias, ret = 0, i;
 	char *config_file_path = malloc(100);
 	char *content = malloc(1024);
 	char **lines;
@@ -111,7 +111,7 @@ int print_alias_match(char **argv, line_t **envp, char *match_string)
 	{
 		fflush(stdout);
 		lines = _strtok(content, "\n");
-		for (int i = 0; lines[i] != NULL; i++)
+		for (i = 0; lines[i] != NULL; i++)
 		{
 			if (string_cmp(match_string, lines[i]) == string_len(match_string))
 			{

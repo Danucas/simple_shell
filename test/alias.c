@@ -8,7 +8,7 @@
  */
 int from_conf_to_backup(char **argv, line_t **envp, size_t  match)
 {
-	int backup_fd, conf_fd, rd_size;
+	int backup_fd, conf_fd, rd_size, i, j;
 	size_t line_t = 0;
 	char *conf_filename = malloc(100), *buff = malloc(1024), **lines;
 
@@ -26,11 +26,11 @@ int from_conf_to_backup(char **argv, line_t **envp, size_t  match)
 	while (rd_size > 0)
 	{
 		lines = _strtok(buff, "\n");
-		for (int i = 0; lines[i] != NULL; i++, line_t++)
+		for (i = 0; lines[i] != NULL; i++, line_t++)
 		{
 			if (line_t == match)
 			{
-				for (int j = 0; argv[j] != NULL; j++)
+				for (j = 0; argv[j] != NULL; j++)
 				{
 					write(backup_fd, argv[j], string_len(argv[j]));
 					if (argv[j + 1] != NULL)
@@ -74,7 +74,7 @@ int rep_alias(int *al_fd, char **argv, line_t **envp, size_t match)
  */
 int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
 {
-	int line_n = 0, comp_len = 6, ret = 0;
+	int line_n = 0, comp_len = 6, ret = 0, i;
 	int bufsize = -1;
 	char *buf = malloc(1024);
 	char **lines;
@@ -94,7 +94,7 @@ int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
 	{
 		buf[bufsize] = '\0';
 		lines = _strtok(buf, "\n");
-		for (int i = 0; lines[i] != NULL; i++, line_n++)
+		for (i = 0; lines[i] != NULL; i++, line_n++)
 		{
 			if (string_cmp(comp_line, lines[i]) == comp_len)
 			{
@@ -118,7 +118,7 @@ int check_existing_alias(int *alias_fd, char **argv, line_t **envp)
  */
 int write_alias(char **argv, line_t **envp)
 {
-	int alias_fd, wr, count = 0, stat = 0, exists = 0;
+	int alias_fd, wr, count = 0, stat = 0, exists = 0, i;
 	char *config_file_path = malloc(100);
 
 	_getenv("HOME", envp, &config_file_path);
@@ -142,7 +142,7 @@ int write_alias(char **argv, line_t **envp)
 	if (exists == 0)
 	{
 		wr = write(alias_fd, "\n", 1);
-		for (int i = 0; argv[i] != NULL; i++)
+		for (i = 0; argv[i] != NULL; i++)
 		{
 /*			_printf("args: %s\n", argv[i]);*/
 			wr = write(alias_fd, argv[i], string_len(argv[i]));

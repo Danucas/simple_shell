@@ -51,7 +51,7 @@ size_t _getline(char **line);
 void free_args(char **args);
 int _gethostname(char *buff, int size);
 void getprompt(line_t **env, char *prompt);
-void exit_shell(char **prompt);
+void exit_shell(int code);
 int prompt_loop(char **argv, line_t **envp);
 int runchildproc(char **process, int time, char *context, line_t **env);
 int run_command(char **list, char *context, line_t **env);

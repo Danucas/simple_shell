@@ -63,22 +63,10 @@ void getprompt(line_t **envp, char *prompt)
 void sig_handler(int signal)
 {
 	(void) signal;
-	char *last_line = malloc(100);
-	int p_fd = open("/tmp/prompt_line", O_RDONLY);
-	int rd = read(p_fd, last_line, 100);
-
-	if (rd == -1)
-	{
-		_printf("no such last line\n");
-	}
-	last_line[rd] = '\0';
-	close(p_fd);
 	_printf("\n");
 	fflush(stdout);
-	_printf(last_line);
 	_printf("$ ");
 	fflush(stdout);
-	free(last_line);
 }
 /**
  *prompt_loop - init the capturing loop and the sighandler
@@ -89,21 +77,17 @@ void sig_handler(int signal)
 int prompt_loop(char **argv, line_t **envp)
 {
 	static int enteredhits = 1, parse_stat;
-	char *prompt;
 
-	prompt = malloc(sizeof(char) * 70);
 	signal(SIGINT, sig_handler);
 	while (1)
 	{
-		getprompt(envp, prompt);
-		_printf(prompt);
 		_printf("$ ");
 		fflush(stdout);
 		parse_stat = parse_and_run(argv[0], envp, enteredhits);
 		if (parse_stat == -1)
 		{
 			free_env(envp);
-			exit_shell(&prompt);
+			exit_shell(0);
 		}
 		enteredhits++;
 	}

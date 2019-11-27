@@ -7,10 +7,10 @@
  */
 int _gethostname(char *buff, int size)
 {
-	(void) buff;
-	(void) size;
 	int fd, rd;
 
+	(void) buff;
+	(void) size;
 	fd = open("/proc/sys/kernel/hostname", O_RDONLY);
 	if (fd < 0)
 	{
