@@ -34,7 +34,7 @@ $ ./concha
 ```
 
 ### Usage.
-````bash
+```bash
 $ ls
 #man_1_simple_shell#	    Simple_Shell_Flowchart.jpg	comp	      fork.c		ls		    put.c	    tokens.c
 AUTHORS			    					          a.out				    		    concha       free.c  man_1_simple_shell  remove_deleted  tty
