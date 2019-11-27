@@ -11,7 +11,7 @@ int check_paths(char **paths, char **args, line_t **envp)
 	char *copy;
 	int i = 0;
 	char *command;
-	int runstatus;
+	int runstatus = -1;
 	struct stat *state = malloc(sizeof(struct stat));
 
 	command = malloc(sizeof(char) * 100);
@@ -24,8 +24,12 @@ int check_paths(char **paths, char **args, line_t **envp)
 		free(copy);
 		return (0);
 	}
+	if (command[0] == '/')
+	{
+		runstatus = runchildproc(args, 0, command, envp);
+	}
 	free(args[0]);
-	while (paths[i] != NULL)
+	while (paths[i] != NULL && runstatus != 0)
 	{
 		str_cpy(paths[i], copy);
 		str_concat(copy, "/");
