@@ -92,7 +92,7 @@ int prompt_loop(char **argv, line_t **envp)
 		enteredhits++;
 	}
 	(void) argv;
-	return (-1);
+	return (1);
 }
 /**
  *parse_and_run - get the input parsed and runit
@@ -139,7 +139,8 @@ int parse_and_run(char *arg, line_t **envp, int hits)
 			print_dec(hits);
 			_printf(": ");
 			_printf(list[0]);
-			_printf(": not found perro\n");
+			_printf(": not found\n");
+			write(STDERR_FILENO, &((char) 127), 1);
 		}
 		free_args(list);
 		free_args(paths);

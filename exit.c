@@ -5,9 +5,7 @@
  */
 void exit_shell(int code)
 {
-	char c = code;
-
-	write(STDERR_FILENO, &c, 1);
+	(void) code;
 	_printf("\n");
 	exit(0);
 }

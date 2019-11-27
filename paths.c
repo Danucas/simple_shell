@@ -35,7 +35,7 @@ int check_paths(char **paths, char **args, line_t **envp)
 		str_concat(copy, "/");
 		str_concat(copy, command);
 		args[0] = copy;
-		runstatus = stat(args[0], state);
+		runstatus = stat(copy, state);
 		if (runstatus == 0)
 		{
 			runstatus = runchildproc(args, 0, command, envp);
