@@ -20,8 +20,7 @@ int runfromout(char **argv, line_t *env, char *pipe)
 	{
 		line_head = list[pos];
 		while (list[pos][argc] != '\0')
-		{
-			if (list[pos][argc] == '\t' || list[pos][argc] == ' ')
+		{	if (list[pos][argc] == '\t' || list[pos][argc] == ' ')
 				line_head = &(list[pos][argc + 1]);
 			else if (list[pos][argc] > 31 && list[pos][argc] < 127)
 				break;
@@ -67,7 +66,7 @@ int main(int argc, char **argv, char **envp)
 		if (pipstat > 0)
 		{
 			pipe[pipstat - 1] = '\0';
-			return (runfromout(argv, env, pipe));
+			return(runfromout(argv, env, pipe));
 		}
 	}
 	promptstat = prompt_loop(argv, &env);

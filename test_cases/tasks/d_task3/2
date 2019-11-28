@@ -3,7 +3,7 @@ echo -e "=====\nTesting case $1"
 
 echo "ls" | ./concha > "tasks/d_task3/log${1}/out" 2> "tasks/d_task3/log${1}/out_error"
 
-echo "/ls" | sh > "tasks/d_task3/log${1}/esp" 2> "tasks/d_task3/log${1}/esp_error"
+echo "ls" | sh > "tasks/d_task3/log${1}/esp" 2> "tasks/d_task3/log${1}/esp_error"
 
 res=$(diff "tasks/d_task3/log${1}/out" "tasks/d_task3/log${1}/esp" | wc -c)
 
