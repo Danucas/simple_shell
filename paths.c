@@ -24,7 +24,8 @@ int check_paths(char **paths, char **args, line_t **envp, int *ex_st)
 		return (i);
 	}
 	if (command[0] == '/')
-	{	runstatus = runchildproc(args, 0, command, envp);
+	{	runstatus = stat(command, state);
+		*ex_st = runchildproc(args, 0, command, envp);
 		free(command), free(state), free(copy);
 		return (runstatus);
 	}
@@ -37,7 +38,7 @@ int check_paths(char **paths, char **args, line_t **envp, int *ex_st)
 		args[0] = copy;
 		runstatus = stat(copy, state);
 		if (runstatus == 0)
-		{	runstatus = runchildproc(args, 0, command, envp);
+		{	*ex_st = runchildproc(args, 0, command, envp);
 			break;
 		}
 		i++;

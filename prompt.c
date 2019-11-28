@@ -150,7 +150,7 @@ int parse_and_run(char *arg, line_t **envp, int hits, int *exit_stat)
 	free(line);
 	free(path);
 	fflush(stdin);
-	if (ret >= 0)
+	if (ret > 0)
 		*exit_stat = ret;
 	return (ret);
 }
