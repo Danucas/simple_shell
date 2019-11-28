@@ -8,6 +8,7 @@
  */
 int runfromout(char **argv, line_t *env, char *pipe)
 {
+	static int hits = 1;
 	char **list, **args, *line_head;
 	char **paths, *path = malloc(200);
 	int pos = 0, argc = 0;
@@ -32,10 +33,12 @@ int runfromout(char **argv, line_t *env, char *pipe)
 		if (check_paths(paths, args, &env) == -1)
 		{	_printf(argv[0]);
 			_printf(": ");
-			_printf("1: ");
+			print_dec(hits);
+			_printf(": ");
 			_printf(list[0]);
 			_printf(": not found\n");
 		}
+		hits++;
 		pos++;
 	}
 	(void) args;
