@@ -1,0 +1,22 @@
+#!/bin/bash
+echo -e "\033[35mTask3\033[0m"
+echo -e "\033[0mchecking case: ${1}\033[0m"
+echo "========="
+
+if [[ $1 == "" ]]
+then
+    echo "==Running all cases=="
+    ls tasks/d_task3/ |
+	while read case
+	do
+	    re='^[0-9]+$'
+	    if [[ $case =~ $re ]]
+	    then
+		mkdir -p "tasks/d_task3/log${case}"
+		"tasks/d_task3/${case}" $case
+	    fi
+	done
+else
+    mkdir -p "tasks/d_task3/log${1}"
+    "tasks/d_task3/${1}" $1
+fi

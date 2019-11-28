@@ -25,9 +25,6 @@ int runchildproc(char **process, int time, char *context, line_t **env)
 		command = process[0];
 		process[0] = context;
 		runstat = execve(command, process, get_env_array(env));
-		_printf("runstat fork: ");
-		print_dec(runstat);
-		_printf("\n");
 		if (runstat == -1)
 		{
 			return (-1);

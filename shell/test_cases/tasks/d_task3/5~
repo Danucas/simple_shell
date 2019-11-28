@@ -1,0 +1,25 @@
+#!/bin/bash
+
+echo "=====\nTesting case $1"
+tmp_file="check_file$RANDOM"
+
+command="/bin/ls
+     /bin/ls
+/bin/ls
+  /bin/ls"
+
+touch $tmp_file
+
+echo $command | ./concha > "tasks/d_task3/log${1}/out" 2> "tasks/d_task3/log${1}/out_error"
+
+echo $command | sh > "tasks/d_task3/log${1}/esp" 2> "tasks/d_task3/log${1}/esp_error"
+
+
+rm -f $tmp_file
+
+res=$(diff "tasks/d_task3/log${1}/out" "tasks/d_task3/log${1}/esp" | wc -c)
+if [ $res != 0 ]
+then
+    diff "tasks/d_task3/log${1}/out" "tasks/d_task3/log${1}/esp"
+fi
+./print_res $res

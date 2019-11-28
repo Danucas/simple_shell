@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+int main()
+{
+	FILE *pFile;
+	int i;
+
+	pFile = stdin;
+
+	i = (int) sizeof(stdin);
+	printf("%x bytes in stdin\n", *pFile);
+	for (i = 0; pFile->_p[i]; i)
+	{
+		printf("%c", pFile->_ptr[i]);
+	}
+	printf("\n%d count, %dbufsiz\n", pFile->_cnt, pFile->_bufsiz);
+
+	return (0);
+}

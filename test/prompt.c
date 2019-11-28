@@ -140,7 +140,6 @@ int parse_and_run(char *arg, line_t **envp, int hits)
 			_printf(": ");
 			_printf(list[0]);
 			_printf(": not found\n");
-			write(STDERR_FILENO, &((char) 127), 1);
 		}
 		free_args(list);
 		free_args(paths);

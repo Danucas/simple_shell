@@ -1,0 +1,4 @@
+#!/bin/bash
+cp ../concha concha
+echo -e "\033[32minitializing test"
+"tasks/${1}" $2

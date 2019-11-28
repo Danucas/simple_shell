@@ -1,0 +1,7 @@
+envp to linked list
+modify setenv, getenv, make unsetenv
+cd implement ~
+change strtok to return linked list
+manage exit status
+implement env
+implement $? $#
