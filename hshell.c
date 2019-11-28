@@ -25,11 +25,9 @@ int main(int argc, char **argv, char **envp)
 			list = _strtok(pipe, "\n");
 			paths = _strtok(_getenv("PATH", &env, &path), ":");
 			while (list[pos] != NULL)
-			{
-				args = _strtok(list[pos], " \n\t");
-				if(check_paths(paths,args, &env) == -1)
-				{
-					_printf(argv[0]);
+			{	args = _strtok(list[pos], " \n\t");
+				if (check_paths(paths, args, &env) == -1)
+				{	_printf(argv[0]);
 					_printf(": ");
 					_printf("1: ");
 					_printf(list[0]);
@@ -41,7 +39,7 @@ int main(int argc, char **argv, char **envp)
 			(void) line_head;
 			(void) state;
 			free_args(list);
-			return(0);
+			return (0);
 		}
 	}
 	env = get_env_list(envp);
