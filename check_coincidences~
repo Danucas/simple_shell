@@ -1,6 +1,0 @@
-#!/bin/bash
-ls *.c |
-while read file
-do
-    echo checking $file
-done
