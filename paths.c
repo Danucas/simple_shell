@@ -87,6 +87,10 @@ int check_builtin(char *command, char **args, line_t **envp)
 		free(context);
 		return (0);
 	}
+	if (string_cmp("exit", command) == 4 && string_len(command) == 4)
+	{
+		exit_shell(0);
+	}
 	free(context);
 /*	parse_alias(args, envp);*/
 	return (-1);

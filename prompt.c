@@ -87,6 +87,7 @@ int prompt_loop(char **argv, line_t **envp)
 		if (parse_stat == -1)
 		{
 			free_env(envp);
+			_printf("\n");
 			exit_shell(0);
 		}
 		enteredhits++;

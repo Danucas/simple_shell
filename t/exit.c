@@ -6,6 +6,5 @@
 void exit_shell(int code)
 {
 	(void) code;
-	_printf("\n");
 	exit(0);
 }
