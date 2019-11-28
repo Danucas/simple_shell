@@ -84,6 +84,8 @@ int check_builtin(char *command, char **args, line_t **envp)
 	if (string_cmp("env", command) == 3 && string_len(command) == 3)
 	{
 		printargs(envp);
+		free(context);
+		return (0);
 	}
 	free(context);
 /*	parse_alias(args, envp);*/
