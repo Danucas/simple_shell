@@ -11,7 +11,7 @@ int runfromout(char **argv, line_t *env, char *pipe)
 	static int hits = 1;
 	char **list, **args, *line_head;
 	char **paths, *path = malloc(200);
-	int pos = 0, argc = 0;
+	int pos = 0, argc = 0, status, st;
 	struct stat *state = malloc(sizeof(struct stat));
 
 
@@ -30,12 +30,13 @@ int runfromout(char **argv, line_t *env, char *pipe)
 		}
 		argc = 0;
 		args = _strtok(line_head, " \n\t");
-		if (check_paths(paths, args, &env) == -1)
+		st = check_paths(paths, args, &env, &status);
+		if (st == -1)
 		{	_printf(argv[0]);
 			_printf(": ");
 			print_dec(hits);
 			_printf(": ");
-			_printf(list[0]);
+			_printf(args[0]);
 			_printf(": not found\n");
 		}
 		hits++;
@@ -45,7 +46,7 @@ int runfromout(char **argv, line_t *env, char *pipe)
 	(void) line_head;
 	(void) state;
 	free_args(list);
-	return (0);
+	return (status);
 }
 
 /**
@@ -76,5 +77,5 @@ int main(int argc, char **argv, char **envp)
 	promptstat = prompt_loop(argv, &env);
 	(void) promptstat;
 	(void) env;
-	return (0);
+	return (promptstat);
 }

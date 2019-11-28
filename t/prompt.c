@@ -1,5 +1,5 @@
 #include "shell_libs.h"
-int parse_and_run(char *arg, line_t **envp, int hits);
+int parse_and_run(char *arg, line_t **envp, int hits, int *exit_stat);
 /**
  *handle_format - set the Prompt content
  *@token: token to the value it's beeing asked
@@ -76,33 +76,34 @@ void sig_handler(int signal)
  */
 int prompt_loop(char **argv, line_t **envp)
 {
-	static int enteredhits = 1, parse_stat;
+	static int enteredhits = 1, parse_stat, exit_stat;
 
 	signal(SIGINT, sig_handler);
 	while (1)
 	{
 		_printf("$ ");
 		fflush(stdout);
-		parse_stat = parse_and_run(argv[0], envp, enteredhits);
+		parse_stat = parse_and_run(argv[0], envp, enteredhits, &exit_stat);
 		if (parse_stat == -1)
 		{
 			free_env(envp);
 			_printf("\n");
-			exit_shell(0);
+			break;
 		}
 		enteredhits++;
 	}
 	(void) argv;
-	return (1);
+	return (exit_stat);
 }
 /**
  *parse_and_run - get the input parsed and runit
  *@arg: args
  *@envp: environment variables
  *@hits: hit counter
+ *@exit_stat: exit return value;
  *Return: -1 if  it fails
  */
-int parse_and_run(char *arg, line_t **envp, int hits)
+int parse_and_run(char *arg, line_t **envp, int hits, int *exit_stat)
 {
 	char *line, *actual;
 	char *path;
@@ -133,7 +134,8 @@ int parse_and_run(char *arg, line_t **envp, int hits)
 	{
 		list = _strtok(actual, " \n\t");
 		paths = _strtok(_getenv("PATH", envp, &path), ":");
-		if (check_paths(paths, list, envp) == -1)
+		ret = check_paths(paths, list, envp, exit_stat);
+		if (ret == -1)
 		{
 			_printf(arg);
 			_printf(": ");
@@ -148,5 +150,7 @@ int parse_and_run(char *arg, line_t **envp, int hits)
 	free(line);
 	free(path);
 	fflush(stdin);
+	if (ret >= 0)
+		*exit_stat = ret;
 	return (ret);
 }

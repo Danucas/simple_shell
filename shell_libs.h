@@ -30,7 +30,7 @@ char *string_rem(char *s1, char *s2);
 
 /*Printing functions*/
 void printl(line_t *list);
-void printargs(line_t **args);
+int printargs(line_t **args);
 int _printf(char *string);
 int print_dec(int n);
 int _put(int c);
@@ -44,7 +44,7 @@ void free_env(line_t **envp);
 
 
 /*Lexic analizer*/
-int check_paths(char **paths, char **args, line_t **envp);
+int check_paths(char **paths, char **args, line_t **envp, int *ex_st);
 int write_alias(char **argv, line_t **envp);
 int _getchar(void);
 size_t _getline(char **line);
@@ -59,7 +59,7 @@ int run_multiprocess(char **list, char *context, line_t **env);
 
 /*Built in functions*/
 int _cd(char *path, line_t **envp);
-int check_builtin(char *command, char **args, line_t **envp);
+int check_builtin(char *command, char **args, line_t **envp, int *ex_st);
 int parse_alias(char **args, line_t **envp);
 int from_backup_to_conf(char **argv, line_t **envp, size_t match);
 int print_alias(line_t **envp);

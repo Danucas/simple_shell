@@ -25,16 +25,15 @@ int runchildproc(char **process, int time, char *context, line_t **env)
 		command = process[0];
 		process[0] = context;
 		runstat = execve(command, process, get_env_array(env));
-		if (runstat == -1)
-		{
-			return (-1);
-		}
-/*		exit(1);*/
 	}
-	else
+	if (waitpid(ch_pid, &status, 0) == -1)
 	{
-		wait(&status);
-		/*		_printf("I'am your father\n");*/
+		perror("waitpid() failed");
+		return (EXIT_FAILURE);
+	}
+	if (WIFEXITED(status))
+	{
+		runstat = WEXITSTATUS(status);
 	}
 	(void) time;
 	(void) context;

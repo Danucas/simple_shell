@@ -19,8 +19,9 @@ void printl(line_t *list)
 /**
  *printargs - Prints commands list.
  *@args: args to print
+ *Return: 0 if success
  */
-void printargs(line_t **args)
+int printargs(line_t **args)
 {
 	line_t *arg = *args;
 
@@ -30,4 +31,5 @@ void printargs(line_t **args)
 		_printf("\n");
 		arg = arg->next;
 	}
+	return (0);
 }
