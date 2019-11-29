@@ -24,7 +24,7 @@ int runchildproc(char **process, int time, char *context, line_t **env)
 	  /*		_printf("Wait for me, wait for me\n");*/
 		command = process[0];
 		process[0] = context;
-		runstat = execve(command, process, get_env_array(env));
+		execve(command, process, get_env_array(env));
 	}
 	if (waitpid(ch_pid, &status, 0) == -1)
 	{

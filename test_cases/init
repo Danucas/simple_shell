@@ -11,5 +11,5 @@ function stop()
 
 echo -e "\033[36mCompiling"
 gcc -Wall -Werror -Wextra -pedantic ../*c -o $shell
-echo -e "\033[36minitializing test"
+echo -e "\033[36m=======================\ninitializing test\n=======================\n"
 "tasks/${1}" $2

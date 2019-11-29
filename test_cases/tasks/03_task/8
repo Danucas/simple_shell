@@ -1,24 +1,16 @@
 #!/bin/bash
 echo -e "=====\nTesting case $1"
-command="ls
-ls
-ls
-/bin/ls
-ls
-ls
-ls
-/bin/ls
-ls
-ls"
+command="/bin/ls"
 
-touch tmpfile
+echo "$command" > tmp_file
 
 echo -e "cheking input:\n${command}\n"
 
-echo "$command" | sh > "tasks/03_task/log${1}/esp" 2> "tasks/03_task/log${1}/esp_error"
+cat tmp_file | sh > "tasks/03_task/log${1}/esp" 2> "tasks/03_task/log${1}/esp_error"
 excod1=$?
-echo "$command" | ./hsh > "tasks/03_task/log${1}/out" 2> "tasks/03_task/log${1}/out_error"
+cat tmp_file | ./hsh > "tasks/03_task/log${1}/out" 2> "tasks/03_task/log${1}/out_error"
 excod2=$?
+
 if ! diff "tasks/03_task/log${1}/out" "tasks/03_task/log${1}/esp"
    then
     ./fail
