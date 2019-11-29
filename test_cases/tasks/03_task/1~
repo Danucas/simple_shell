@@ -1,0 +1,22 @@
+#!/bin/bash
+echo -e "=====\nTesting case $1"
+command="/bin/ls"
+bold_black="\e[1;30m"
+echo -e "cheking input:\n${command}\n"
+echo
+val="valgrind --leak-check=full --track-origins=yes --trace-children=yes ---error-exitcode=1"
+
+echo "$command" | sh > "tasks/03_task/log${1}/esp" 2> "tasks/03_task/log${1}/esp_error"
+excod1=$?
+echo "$command" | ./hsh > "tasks/03_task/log${1}/out" 2> "tasks/03_task/log${1}/out_error"
+excod2=$?
+
+
+if ! diff "tasks/03_task/log${1}/out" "tasks/03_task/log${1}/\
+esp"; then
+    ./fail
+    ./check_differences $1 $excod1 $excod2
+else
+    ./success
+    ./check_differences $1 $excod1 $excod2
+fi

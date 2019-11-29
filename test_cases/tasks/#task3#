@@ -5,17 +5,17 @@ echo "========="
 if [[ $1 == "" ]]
 then
     echo "==Running all cases=="
-    ls tasks/03_task/ |
+    ls tasks/d_task3/ |
 	while read case
 	do
 	    re='^[0-9]+$'
 	    if [[ $case =~ $re ]]
 	    then
 		mkdir -p "tasks/03_task/log${case}"
-		"tasks/03_task/${case}" $case
+		"tasks/d_task3/${case}" $case
 	    fi
 	done
 else
-    mkdir -p "tasks/03_task/log${1}"
-    "tasks/03_task/${1}" $1
+    mkdir -p "tasks/d_task3/log${1}"
+    "tasks/d_task3/${1}" $1
 fi

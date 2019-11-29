@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo -e "\n\e[1;41;37m  Fail  \e[0m"

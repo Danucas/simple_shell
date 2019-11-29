@@ -31,6 +31,7 @@ char *string_rem(char *s1, char *s2);
 /*Printing functions*/
 void printl(line_t *list);
 int printargs(line_t **args);
+int print_arr(char **args);
 int _printf(char *string);
 int print_dec(int n);
 int _put(int c);

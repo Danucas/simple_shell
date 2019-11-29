@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo -e "\n\e[1;42;37m  Pass  \e[0m"

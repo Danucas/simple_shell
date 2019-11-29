@@ -33,3 +33,20 @@ int printargs(line_t **args)
 	}
 	return (0);
 }
+
+/**
+ *print_arr - Prints commands list.
+ *@args: args to print
+ *Return: 0 if success
+ */
+int print_arr(char **args)
+{
+	int pos = 0;
+
+	while (args[pos] != NULL)
+	{
+		_printf(args[pos]);
+		_printf("\n");
+	}
+	return (pos);
+}

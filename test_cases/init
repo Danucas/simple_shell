@@ -1,4 +1,15 @@
 #!/bin/bash
-cp ../concha concha
-echo -e "\033[32minitializing test"
+shell="hsh"
+
+function stop()
+{
+    if [ $(pidof "$shell" | wc -l) -ne 0 ];then
+	killall -9 $shell > /dev/null 2>&1
+    fi
+}
+
+
+echo -e "\033[36mCompiling"
+gcc -Wall -Werror -Wextra -pedantic ../*c -o $shell
+echo -e "\033[36minitializing test"
 "tasks/${1}" $2

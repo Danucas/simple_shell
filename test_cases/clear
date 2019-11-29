@@ -1,0 +1,2 @@
+#!/bin/bash
+rm -rf tasks/d_task3/lo*

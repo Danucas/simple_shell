@@ -10,13 +10,19 @@ int runfromout(char **argv, line_t *env, char *pipe)
 {
 	static int hits = 1;
 	char **list, **args, *line_head;
-	char **paths, *path = malloc(200);
+	char **paths, *path = malloc(200), *pa;
 	int pos = 0, argc = 0, status, st;
 	struct stat *state = malloc(sizeof(struct stat));
 
 
 	list = _strtok(pipe, "\n");
-	paths = _strtok(_getenv("PATH", &env, &path), ":");
+	pa = _getenv("PATH", &env, &path);
+	if (pa[0] == '\0')
+	{
+		_printf("empty PATH");
+		return(0);
+	}
+	paths = _strtok(pa, ":");
 	while (list[pos] != NULL)
 	{
 		line_head = list[pos];
@@ -58,13 +64,21 @@ int runfromout(char **argv, line_t *env, char *pipe)
  */
 int main(int argc, char **argv, char **envp)
 {
-	char pipe[1024];
+	char pipe[1024], *pa, *path = malloc(200);
 	int pipstat, promptstat;
 	line_t *env;
 
 	(void) argc;
 	(void) argv;
 	env = get_env_list(envp);
+	print_arr(argv);
+	printargs(&env);
+	pa = _getenv("PATH", &env, &path);
+	if (string_len(pa) == 0)
+	{
+		_printf("empty PATH\n");
+		exit(2);
+	}
 	if (!isatty(STDIN_FILENO))
 	{
 		pipstat = read(STDIN_FILENO, &pipe, 1024);
