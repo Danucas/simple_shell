@@ -1,4 +1,5 @@
-total 8
-drwxrwxrwt.  2 dan dan 3488 Nov 29 13:14 .
-drwxr-xr-x. 24 dan dan 3488 Oct  8 03:26 ..
--rw-------.  1 dan dan   40 Nov 27 05:15 prompt_line
+total 16
+drwxrwxrwt  4 root root 4096 Nov 29 17:28 .
+drwxr-xr-x 25 root root 4096 Nov 28 19:09 ..
+drwxrwxrwt  2 root root 4096 Nov 28 19:09 .ICE-unix
+drwxrwxrwt  2 root root 4096 Nov 28 19:09 .X11-unix

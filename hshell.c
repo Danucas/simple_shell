@@ -14,8 +14,10 @@ int runfromout(char **argv, line_t *env, char *pipe)
 	int pos = 0, argc = 0, status, st;
 	struct stat *state = malloc(sizeof(struct stat));
 
-
+	_printf("Runing from out\n");
+	_printf(pipe);
 	list = _strtok(pipe, "\n");
+	_printf("strtok done\n");
 	pa = _getenv("PATH", &env, &path);
 	if (pa[0] == '\0')
 	{
@@ -35,6 +37,8 @@ int runfromout(char **argv, line_t *env, char *pipe)
 			argc++;
 		}
 		argc = 0;
+		_printf(line_head);
+		_printf("\n");
 		args = _strtok(line_head, " \n\t");
 		st = check_paths(paths, args, &env, &status);
 		if (st == -1)
@@ -77,14 +81,14 @@ int main(int argc, char **argv, char **envp)
 	if (string_len(pa) == 0)
 	{
 		/*_printf("empty PATH\n");*/
-		exit(127);
+		exit(0);
 	}
 	if (!isatty(STDIN_FILENO))
 	{
-		pipstat = read(STDIN_FILENO, &pipe, 1024);
+		pipstat = read(STDIN_FILENO, &pipe, 1023);
 		if (pipstat > 0)
 		{
-			pipe[pipstat - 1] = '\0';
+			pipe[pipstat] = '\0';
 			return (runfromout(argv, env, pipe));
 		}
 	}

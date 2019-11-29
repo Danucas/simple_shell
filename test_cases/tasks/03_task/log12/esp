@@ -1,5 +1,5 @@
-#check_differencesclear#
 check_differences
+#check_differencesclear#
 clear
 concha
 fail
@@ -9,6 +9,6 @@ init
 print_res
 success
 tasks
-tmp_file
 tmpfile
+tmp_file
 val
