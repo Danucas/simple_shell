@@ -2,6 +2,15 @@
 ls *.c |
 while read file
 do
-    echo checking $file
-    cat $file | grep -Hn $1
+    res=$(cat $file | grep -Hn $1)
+    if [ $( echo "$res" | wc -c ) != "1" ]
+    then
+	echo -e "\e[33m\nchecking $file\n\e[0m================="
+	echo "$res" |
+	while read line
+	do
+	    echo $( echo "$line" | cut -d":" -f2,3 )
+	done
+	echo -e "=================\n"
+    fi
 done

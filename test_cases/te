@@ -1,3 +1,6 @@
 #!/bin/bash
 cp /bin/ls hbtn_ls
-echo "                                                                                                                        " | ./hsh
+command="       
+/bin/ls
+            "
+echo "$command" | ./hsh

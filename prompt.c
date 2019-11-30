@@ -123,13 +123,15 @@ int parse_and_run(char *arg, line_t **envp, int hits, int *exit_stat)
 	{
 		clean_up(&line);
 		list = _strtok(line, " \n\t");
-		paths = _strtok(_getenv("PATH", envp, &path), ":");
-		ret = check_paths(paths, list, envp, exit_stat);
-		if (ret == -1)
-		{
-			_printf(arg), _printf(": ");
-			print_dec(hits);
-			_printf(": "), _printf(list[0]), _printf(": not found\n");
+		if (list[0] != NULL)
+		{	paths = _strtok(_getenv("PATH", envp, &path), ":");
+			ret = check_paths(paths, list, envp, exit_stat);
+			if (ret == -1)
+			{
+				_printf(arg), _printf(": ");
+				print_dec(hits);
+				_printf(": "), _printf(list[0]), _printf(": not found\n");
+			}
 		}
 		free_args(list), free_args(paths);
 	}

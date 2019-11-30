@@ -125,8 +125,11 @@ char **_strtok(char *line, char *token)
 					}
 					cont++;
 				}
-				args[argc] = str_dup(buff);
-				argc++;
+				if (cont > 0)
+				{
+					args[argc] = str_dup(buff);
+					argc++;
+				}
 				cont = 0;
 				if (end == 1)
 					break;
