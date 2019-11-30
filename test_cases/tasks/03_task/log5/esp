@@ -1,52 +1,32 @@
-check_differences
-#check_differencesclear#
-clear
-concha
-fail
-hsh
-init
-print_res
-success
-tasks
-tmpfile
-tmp_file
-val
-check_differences
-#check_differencesclear#
-clear
-concha
-fail
-hsh
-init
-print_res
-success
-tasks
-tmpfile
-tmp_file
-val
-check_differences
-#check_differencesclear#
-clear
-concha
-fail
-hsh
-init
-print_res
-success
-tasks
-tmpfile
-tmp_file
-val
-check_differences
-#check_differencesclear#
-clear
-concha
-fail
-hsh
-init
-print_res
-success
-tasks
-tmpfile
-tmp_file
-val
+total 104
+-rwxrwxr-x 1 vagrant vagrant   488 Nov 30 21:00 check_differences
+-rwxrwxr-x 1 vagrant vagrant     3 Nov 30 21:00 #check_differencesclear#
+-rwxrwxr-x 1 vagrant vagrant    37 Nov 30 21:00 clear
+-rwxrwxr-x 1 vagrant vagrant 26532 Nov 30 21:00 concha
+-rwxrwxr-x 1 vagrant vagrant    50 Nov 30 21:00 fail
+-rwxrwxr-x 1 vagrant vagrant 28695 Nov 30 22:21 hsh
+-rwxrwxr-x 1 vagrant vagrant   322 Nov 30 21:00 init
+-rwxrwxr-x 1 vagrant vagrant   131 Nov 30 21:00 print_res
+-rwxrwxr-x 1 vagrant vagrant    50 Nov 30 21:00 success
+drwxrwxr-x 3 vagrant vagrant  4096 Nov 30 21:00 tasks
+-rwxrwxr-x 1 vagrant vagrant    94 Nov 30 21:00 te
+-rwxrwxr-x 1 vagrant vagrant     0 Nov 30 22:21 tmpfile
+-rwxrwxr-x 1 vagrant vagrant   324 Nov 30 22:21 tmp_file
+-rwxrwxr-x 1 vagrant vagrant    82 Nov 30 21:00 val
+total 104
+-rwxrwxr-x 1 vagrant vagrant   488 Nov 30 21:00 check_differences
+-rwxrwxr-x 1 vagrant vagrant     3 Nov 30 21:00 #check_differencesclear#
+-rwxrwxr-x 1 vagrant vagrant    37 Nov 30 21:00 clear
+-rwxrwxr-x 1 vagrant vagrant 26532 Nov 30 21:00 concha
+-rwxrwxr-x 1 vagrant vagrant    50 Nov 30 21:00 fail
+-rwxrwxr-x 1 vagrant vagrant 28695 Nov 30 22:21 hsh
+-rwxrwxr-x 1 vagrant vagrant   322 Nov 30 21:00 init
+-rwxrwxr-x 1 vagrant vagrant   131 Nov 30 21:00 print_res
+-rwxrwxr-x 1 vagrant vagrant    50 Nov 30 21:00 success
+drwxrwxr-x 3 vagrant vagrant  4096 Nov 30 21:00 tasks
+-rwxrwxr-x 1 vagrant vagrant    94 Nov 30 21:00 te
+-rwxrwxr-x 1 vagrant vagrant     0 Nov 30 22:21 tmpfile
+-rwxrwxr-x 1 vagrant vagrant   324 Nov 30 22:21 tmp_file
+-rwxrwxr-x 1 vagrant vagrant    82 Nov 30 21:00 val
+total 0
+total 0

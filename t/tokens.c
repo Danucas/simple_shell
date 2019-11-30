@@ -93,11 +93,16 @@ char **_strtok(char *line, char *token)
 	size_t cont = 0, lc = 0, argc = 0;
 	char **args;
 	int end = 0;
-
+	_printf("Line:\n");
+	_printf(line);
+	_printf("\n");
 	if (line == NULL || token == NULL)
 		return (NULL);
 	argc = _get_list_len(line, token);
 	args = malloc(sizeof(char *) * (argc + 1));
+	_printf("args len: ");
+	print_dec(argc);
+	_printf("\n");
 	argc = 0;
 	while (line[lc] != '\0')
 	{
@@ -115,16 +120,6 @@ char **_strtok(char *line, char *token)
 				}
 				else
 					buff[cont] = '\0';
-				cont = 0;
-				while (buff[cont] != '\0')
-				{
-					if (buff[cont] == *token)
-					{
-						buff[cont] = '\0';
-						break;
-					}
-					cont++;
-				}
 				if (cont > 0)
 				{
 					args[argc] = str_dup(buff);
@@ -143,6 +138,12 @@ char **_strtok(char *line, char *token)
 		lc++;
 	}
 	free(buff);
+	if (argc > 0)
 	args[argc] = NULL;
+	else
+	{
+		args[0] = "(nil)";
+		args[1] = NULL;
+	}
 	return (args);
 }

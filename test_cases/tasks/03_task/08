@@ -1,6 +1,6 @@
 #!/bin/bash
 echo -e "=====\nTesting case $1"
-command="/bin/ls -la /tmp"
+command="/bin/ls"
 
 echo "$command" > tmp_file
 
@@ -17,5 +17,4 @@ if ! diff "tasks/03_task/log${1}/out" "tasks/03_task/log${1}/esp"
     ./check_differences $1 $excod1 $excod2
 else
     ./success
-    ./check_differences $1 $excod1 $excod2
 fi

@@ -1,27 +1,24 @@
 #!/bin/bash
 echo -e "=====\nTesting case $1"
-command="/bin/ls"
+command="ls"
 
 touch tmpfile
-mv hsh ot
+mv hsh to
 OLDPATH="$PATH"
 PATH=""
 
 echo -e "cheking input:\n${command}\n"
-echo "$PATH"
-echo $command | sh > "tasks/03_task/log${1}/esp" 2> "tasks/03_task/log${1}/esp_error"
+
+echo "$command" | sh > "tasks/03_task/log${1}/esp" 2> "tasks/03_task/log${1}/esp_error"
 excod1=$?
-echo "$PATH"
-echo $command | hsh > "tasks/03_task/log${1}/out" 2> "tasks/03_task/log${1}/out_error"
+echo "$command" | ./hsh > "tasks/03_task/log${1}/out" 2> "tasks/03_task/log${1}/out_error"
 excod2=$?
 PATH="$OLDPATH"
-
-mv ot hsh
+mv to hsh
 if ! diff "tasks/03_task/log${1}/out" "tasks/03_task/log${1}/esp"
-   then
+then
     ./fail
     ./check_differences $1 $excod1 $excod2
 else
     ./success
-    ./check_differences $1 $excod1 $excod2
 fi

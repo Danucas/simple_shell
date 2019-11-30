@@ -1,8 +1,6 @@
 #!/bin/bash
 echo -e "=====\nTesting case $1"
-command="/bin/ls
-/bin/ls
-/bin/ls"
+command="/bin/ls -la tmpfile"
 
 touch tmpfile
 
@@ -10,6 +8,7 @@ echo -e "cheking input:\n${command}\n"
 
 echo "$command" | sh > "tasks/03_task/log${1}/esp" 2> "tasks/03_task/log${1}/esp_error"
 excod1=$?
+
 echo "$command" | ./hsh > "tasks/03_task/log${1}/out" 2> "tasks/03_task/log${1}/out_error"
 excod2=$?
 
@@ -19,5 +18,4 @@ if ! diff "tasks/03_task/log${1}/out" "tasks/03_task/log${1}/esp"
     ./check_differences $1 $excod1 $excod2
 else
     ./success
-    ./check_differences $1 $excod1 $excod2
 fi

@@ -17,6 +17,11 @@ int check_paths(char **paths, char **args, line_t **envp, int *ex_st)
 
 	command = malloc(sizeof(char) * 100);
 	copy = malloc(sizeof(char) * 100);
+	_printf(__FILE__);
+	_printf("\n");
+	print_dec(__LINE__);
+	if (args[0] == NULL)
+		_printf("arg[0] is NULL");
 	str_cpy(args[0], command);
 	i = check_builtin(command, args, envp, ex_st);
 	if (i >= 0)
@@ -32,7 +37,10 @@ int check_paths(char **paths, char **args, line_t **envp, int *ex_st)
 	free(args[0]);
 	i = 0;
 	while (paths[i] != NULL && runstatus != 0)
-	{	str_cpy(paths[i], copy);
+	{       print_dec(__LINE__);
+		_printf("\n");
+		fflush(stdout);
+		str_cpy(paths[i], copy);
 		str_concat(copy, "/");
 		str_concat(copy, command);
 		args[0] = copy;

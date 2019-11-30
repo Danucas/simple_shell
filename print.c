@@ -46,7 +46,7 @@ int print_arr(char **args)
 	while (args[pos] != NULL)
 	{
 		_printf(args[pos]);
-		_printf("\n");
+		_printf("||\n");
 		pos++;
 	}
 	return (pos);

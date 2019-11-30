@@ -10,37 +10,50 @@ int runfromout(char **argv, line_t *env, char *pipe)
 {
 	static int hits = 1;
 	char **list, **args, *line_head, *path = malloc(200), **paths;
-	int pos = 0, argc = 0, status, st;
+	int pos = 0, status, st;
 	struct stat *state = malloc(sizeof(struct stat));
 
 	clean_up(&pipe);
+	_printf("pipe: \n");
+	_printf(pipe);
+	_printf("\n");
 	list = _strtok(pipe, "\n");
+	while(list[pos] != NULL)
+	{
+		_printf("text from file: ");
+		_printf(list[pos]);
+		_printf("||\n");
+		pos++;
+	}
+	pos = 0;
 	free(pipe);
 	_getenv("PATH", &env, &path);
 	paths = _strtok(path, ":");
 	while (list[pos] != NULL)
 	{	line_head = list[pos];
-		while (list[pos][argc] != '\0')
-		{
-			if (list[pos][argc] == '\t' || list[pos][argc] == ' ')
-				line_head = &(list[pos][argc + 1]);
-			else if (list[pos][argc] > 31 && list[pos][argc] < 127)
-				break;
-			argc++;
-		}
-		argc = 0;
+		_printf("Line arg: \n");
+		_printf(line_head);
+		_printf("\n");
 		args = _strtok(line_head, " \n\t");
-		st = check_paths(paths, args, &env, &status);
-		if (st == -1)
-		{	_printf(argv[0]), _printf(": ");
-			print_dec(hits);
-			_printf(": "), _printf(args[0]), _printf(": not found\n");
+		print_dec(string_cmp("(nil)", args[0]));
+		_printf("\n");
+		print_dec(string_len(args[0]));
+		_printf("\n");
+		if (string_cmp("(nil)", args[0]) != string_len(args[0]))
+		{	st = check_paths(paths, args, &env, &status);
+			if (st == -1)
+			{	_printf(argv[0]), _printf(": ");
+				print_dec(hits);
+				_printf(": "), _printf(args[0]), _printf(": not found\n");
+			}
 		}
 		free_args(args);
+		_printf("\nFreed\n");
 		hits++, pos++;
 	}
-	(void) args, (void) line_head, (void) state;
+	(void) line_head, (void) state;
 	free_args(list);
+	free_args(paths);
 	if (status)
 		return (status);
 	else

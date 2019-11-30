@@ -7,8 +7,6 @@ void free_args(char **args)
 {
 	int counter = 0;
 
-	print_dec(string_cmp("(nil)", args[counter]));
-	_printf("\n");
 	while (args[counter] != NULL)
 	{
 		if (string_cmp("(nil)", args[counter]) != 5)
