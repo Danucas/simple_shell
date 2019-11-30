@@ -14,24 +14,13 @@ int runfromout(char **argv, line_t *env, char *pipe)
 	struct stat *state = malloc(sizeof(struct stat));
 
 	clean_up(&pipe);
-/*	_printf("pipe: \n");
-	_printf("\n======================\n");
-	_printf(pipe);
-	_printf("\n======================\n");*/
-
-
-	list = _strtok(pipe, "\n");
-
-
-/*		_printf("text from file: ");
-		_printf("\n======================\n");
-	while(list[pos] != NULL)
+	if (pipe[0] == '\0')
 	{
-		_printf(list[pos]);
-		_printf("||\n");
-		pos++;
+		free(path);
+		free(pipe);
+		return (0);
 	}
-	_printf("======================\n");*/
+	list = _strtok(pipe, "\n");
 	pos = 0;
 	free(pipe);
 	_getenv("PATH", &env, &path);

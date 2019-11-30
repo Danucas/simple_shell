@@ -19,14 +19,25 @@ char *clean_up(char **line)
 		_printf("Cleaned is NULL\n");
 	while (l[pos] != '\0')
 	{
-		if (l[pos] == ' ' && l[pos + 1] == ' ')
-		{
-			pos++;
-		}
-		else
+
+		if (l[pos] != ' ')
 		{
 			cleaned[cl_pos] = l[pos];
 			cl_pos++;
+		}
+		if (cl_pos > 0)
+		{
+			if (l[pos] == ' ')
+			{
+				if (cleaned[cl_pos - 1] != ' ' && cleaned[cl_pos - 1] != '\n')
+				{
+					if (l[pos + 1] != ' ' && l[pos + 1] != '\n' && l[pos + 1] != '\0')
+					{
+						cleaned[cl_pos] = l[pos];
+						cl_pos++;
+					}
+				}
+			}
 		}
 		pos++;
 	}
@@ -93,16 +104,11 @@ char **_strtok(char *line, char *token)
 	size_t cont = 0, lc = 0, argc = 0;
 	char **args;
 	int end = 0;
-	_printf("Line:\n");
-	_printf(line);
-	_printf("\n");
+
 	if (line == NULL || token == NULL)
 		return (NULL);
 	argc = _get_list_len(line, token);
 	args = malloc(sizeof(char *) * (argc + 1));
-	_printf("args len: ");
-	print_dec(argc);
-	_printf("\n");
 	argc = 0;
 	while (line[lc] != '\0')
 	{

@@ -31,13 +31,10 @@ char *clean_up(char **line)
 			{
 				if (cleaned[cl_pos - 1] != ' ' && cleaned[cl_pos - 1] != '\n')
 				{
-					if (l[pos + 1] != ' ' && l[pos + 1] != '\n')
+					if (l[pos + 1] != ' ' && l[pos + 1] != '\n' && l[pos + 1] != '\0')
 					{
-						if (l[pos + 1] != '\0')
-						{
-							cleaned[cl_pos] = l[pos];
-							cl_pos++;
-						}
+						cleaned[cl_pos] = l[pos];
+						cl_pos++;
 					}
 				}
 			}
@@ -107,6 +104,7 @@ char **_strtok(char *line, char *token)
 	size_t cont = 0, lc = 0, argc = 0;
 	char **args;
 	int end = 0;
+
 	if (line == NULL || token == NULL)
 		return (NULL);
 	argc = _get_list_len(line, token);

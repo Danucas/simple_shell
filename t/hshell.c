@@ -14,31 +14,20 @@ int runfromout(char **argv, line_t *env, char *pipe)
 	struct stat *state = malloc(sizeof(struct stat));
 
 	clean_up(&pipe);
-	_printf("pipe: \n");
-	_printf(pipe);
-	_printf("\n");
-	list = _strtok(pipe, "\n");
-	while(list[pos] != NULL)
+	if (pipe[0] == '\0')
 	{
-		_printf("text from file: ");
-		_printf(list[pos]);
-		_printf("||\n");
-		pos++;
+		free(path);
+		free(pipe);
+		return (0);
 	}
+	list = _strtok(pipe, "\n");
 	pos = 0;
 	free(pipe);
 	_getenv("PATH", &env, &path);
 	paths = _strtok(path, ":");
 	while (list[pos] != NULL)
 	{	line_head = list[pos];
-		_printf("Line arg: \n");
-		_printf(line_head);
-		_printf("\n");
 		args = _strtok(line_head, " \n\t");
-		print_dec(string_cmp("(nil)", args[0]));
-		_printf("\n");
-		print_dec(string_len(args[0]));
-		_printf("\n");
 		if (string_cmp("(nil)", args[0]) != string_len(args[0]))
 		{	st = check_paths(paths, args, &env, &status);
 			if (st == -1)
@@ -48,7 +37,6 @@ int runfromout(char **argv, line_t *env, char *pipe)
 			}
 		}
 		free_args(args);
-		_printf("\nFreed\n");
 		hits++, pos++;
 	}
 	(void) line_head, (void) state;

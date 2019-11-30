@@ -53,8 +53,7 @@ int _setenv(char *var, line_t **envp, char *value)
 	int len;
 	char *cop = malloc(200);
 	line_t *env = *envp, *new_node, *next = *envp;
-	_printf(__FILE__);
-	print_dec(__LINE__);
+
 	str_cpy(var, cop);
 	str_concat(cop, "=");
 	len = string_len(cop);
