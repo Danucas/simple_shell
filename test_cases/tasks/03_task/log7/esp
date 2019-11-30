@@ -3,7 +3,6 @@ check_differences
 clear
 concha
 fail
-hbtn_ls
 hsh
 init
 print_res

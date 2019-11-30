@@ -9,25 +9,20 @@
 int runfromout(char **argv, line_t *env, char *pipe)
 {
 	static int hits = 1;
-	char **list, **args, *line_head;
-	char **paths, *path = malloc(200), *pa;
+	char **list, **args, *line_head, **paths, *path = malloc(200), *pa;
 	int pos = 0, argc = 0, status, st;
 	struct stat *state = malloc(sizeof(struct stat));
 
-	_printf("Runing from out\n");
-	_printf(pipe);
+	pipe = clean_up(pipe);
 	list = _strtok(pipe, "\n");
-	_printf("strtok done\n");
+	free(pipe);
 	pa = _getenv("PATH", &env, &path);
 	if (pa[0] == '\0')
-	{
-		_printf("empty PATH");
-		return(0);
+	{	return (0);
 	}
 	paths = _strtok(pa, ":");
 	while (list[pos] != NULL)
-	{
-		line_head = list[pos];
+	{	line_head = list[pos];
 		while (list[pos][argc] != '\0')
 		{
 			if (list[pos][argc] == '\t' || list[pos][argc] == ' ')
@@ -37,8 +32,6 @@ int runfromout(char **argv, line_t *env, char *pipe)
 			argc++;
 		}
 		argc = 0;
-		_printf(line_head);
-		_printf("\n");
 		args = _strtok(line_head, " \n\t");
 		st = check_paths(paths, args, &env, &status);
 		if (st == -1)
@@ -52,13 +45,24 @@ int runfromout(char **argv, line_t *env, char *pipe)
 		hits++;
 		pos++;
 	}
-	(void) args;
-	(void) line_head;
-	(void) state;
+	(void) args, (void) line_head, (void) state;
 	free_args(list);
 	return (status);
 }
+/**
+ *clean_pipe - main for the concha process
+ *@p: the arguments count
+ */
+void clean_pipe(char *p)
+{
+	int pos = 0;
 
+	while (pos < 1024)
+	{
+		p[pos] = '\0';
+		pos++;
+	}
+}
 /**
  *main - main for the concha process
  *@argc: the arguments count
@@ -68,27 +72,27 @@ int runfromout(char **argv, line_t *env, char *pipe)
  */
 int main(int argc, char **argv, char **envp)
 {
-	char pipe[1024], *pa, *path = malloc(200);
+	char *pipe = malloc(1024);
+	char *pa, *path = malloc(200);
 	int pipstat, promptstat;
 	line_t *env;
 
 	(void) argc;
 	(void) argv;
 	env = get_env_list(envp);
-/*	print_arr(argv);
-	printargs(&env);*/
 	pa = _getenv("PATH", &env, &path);
 	if (string_len(pa) == 0)
 	{
 		/*_printf("empty PATH\n");*/
 		exit(0);
 	}
+	clean_pipe(pipe);
 	if (!isatty(STDIN_FILENO))
 	{
-		pipstat = read(STDIN_FILENO, &pipe, 1023);
+		pipstat = read(STDIN_FILENO, pipe, 1024);
 		if (pipstat > 0)
 		{
-			pipe[pipstat] = '\0';
+			pipe[pipstat - 1] = '\0';
 			return (runfromout(argv, env, pipe));
 		}
 	}

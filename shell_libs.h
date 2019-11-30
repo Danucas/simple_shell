@@ -69,4 +69,5 @@ int rd_assgn(char **argv, char *comp_line);
 
 void free_two(char *one, char *two);
 int close_two(int one, int two);
+char *clean_up(char *line);
 #endif

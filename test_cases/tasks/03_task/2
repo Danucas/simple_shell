@@ -3,7 +3,7 @@ echo -e "=====\nTesting case $1"
 command="ls"
 
 touch tmpfile
-
+mv hsh to
 OLDPATH="$PATH"
 PATH=""
 
@@ -14,7 +14,7 @@ excod1=$?
 echo "$command" | ./hsh > "tasks/03_task/log${1}/out" 2> "tasks/03_task/log${1}/out_error"
 excod2=$?
 PATH="$OLDPATH"
-
+mv to hsh
 if ! diff "tasks/03_task/log${1}/out" "tasks/03_task/log${1}/esp"
 then
     ./fail

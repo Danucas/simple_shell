@@ -1,5 +1,37 @@
 #include "shell_libs.h"
+
+
 line_t *add_node(char *s, line_t **head);
+
+/**
+ *clean_up - clean the input line by spaces
+ *@line: line to be cleaned
+ *Return: the cleaned line
+ */
+
+char *clean_up(char *line)
+{
+	char *l = line;
+	int pos = 0, cl_pos = 0;
+	char *cleaned = malloc(1024);
+
+	while (l[pos] != '\0')
+	{
+		if (l[pos] == ' ' && l[pos + 1] == ' ')
+		{
+			pos++;
+		}
+		else
+		{
+			cleaned[cl_pos] = l[pos];
+			cl_pos++;
+		}
+		pos++;
+	}
+	cleaned[cl_pos + 1] = '\0';
+	free(line);
+	return (cleaned);
+}
 /**
  *check_token - check if the char is equal to any of the tokens
  *@line: line to break

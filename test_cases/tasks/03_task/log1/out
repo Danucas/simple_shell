@@ -1,13 +1,8 @@
-Runing from out
-/bin/ls
-strtok done
-/bin/ls
 check_differences
 #check_differencesclear#
 clear
 concha
 fail
-hbtn_ls
 hsh
 init
 print_res
