@@ -121,7 +121,7 @@ int parse_and_run(char *arg, line_t **envp, int hits, int *exit_stat)
 	}
 	if ((int) cch > 1)
 	{
-	        clean_up(&line);
+		clean_up(&line);
 		list = _strtok(line, " \n\t");
 		paths = _strtok(_getenv("PATH", envp, &path), ":");
 		ret = check_paths(paths, list, envp, exit_stat);

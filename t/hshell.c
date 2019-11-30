@@ -69,21 +69,13 @@ void clean_pipe(char *p)
  */
 int main(int argc, char **argv, char **envp)
 {
-	char *pipe = malloc(1024), *pa, *p = malloc(200);
+	char *pipe = malloc(1024);
 	int pipstat, promptstat;
 	line_t *env;
 
 	(void) argc;
 	(void) argv;
 	env = get_env_list(envp);
-	pa = _getenv("PATH", &env, &p);
-	if (string_len(pa) == 0)
-	{
-		/*_printf("empty PATH\n");*/
-		free(p);
-		exit(0);
-	}
-	free(p);
 	clean_pipe(pipe);
 	if (!isatty(STDIN_FILENO))
 	{

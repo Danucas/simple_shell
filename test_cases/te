@@ -1,2 +1,3 @@
 #!/bin/bash
-echo "ls" | ./hsh
+cp /bin/ls hbtn_ls
+echo "                                                                                                                        " | ./hsh
