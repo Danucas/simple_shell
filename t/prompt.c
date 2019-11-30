@@ -105,12 +105,12 @@ int prompt_loop(char **argv, line_t **envp)
  */
 int parse_and_run(char *arg, line_t **envp, int hits, int *exit_stat)
 {
-	char *line, *actual;
+	char *line;
 	char *path;
 	size_t cch;
 	char **list;
 	char **paths;
-	int ret = 0, c = 0;
+	int ret = 0;
 
 	line = malloc(sizeof(char) * 1024);
 	path = malloc(sizeof(char) * 1024);
@@ -119,36 +119,21 @@ int parse_and_run(char *arg, line_t **envp, int hits, int *exit_stat)
 	{
 		ret = -1;
 	}
-	actual = line;
-	while (line[c] != '\0')
+	if ((int) cch > 1)
 	{
-		if (line[c] == '\t' || line[c] == ' ')
-		{
-			actual = &(line[c + 1]);
-		}
-		else if (line[c] > 31 && line[c] < 127)
-			break;
-		c++;
-	}
-	if ((int) cch > 1 && actual[0] > 31 && actual[0] < 127)
-	{
-		list = _strtok(actual, " \n\t");
+	        clean_up(&line);
+		list = _strtok(line, " \n\t");
 		paths = _strtok(_getenv("PATH", envp, &path), ":");
 		ret = check_paths(paths, list, envp, exit_stat);
 		if (ret == -1)
 		{
-			_printf(arg);
-			_printf(": ");
+			_printf(arg), _printf(": ");
 			print_dec(hits);
-			_printf(": ");
-			_printf(list[0]);
-			_printf(": not found\n");
+			_printf(": "), _printf(list[0]), _printf(": not found\n");
 		}
-		free_args(list);
-		free_args(paths);
+		free_args(list), free_args(paths);
 	}
-	free(line);
-	free(path);
+	free(line), free(path);
 	fflush(stdin);
 	if (ret > 0)
 		*exit_stat = ret;

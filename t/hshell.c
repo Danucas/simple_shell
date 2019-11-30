@@ -9,18 +9,15 @@
 int runfromout(char **argv, line_t *env, char *pipe)
 {
 	static int hits = 1;
-	char **list, **args, *line_head, **paths, *path = malloc(200), *pa;
+	char **list, **args, *line_head, *path = malloc(200), **paths;
 	int pos = 0, argc = 0, status, st;
 	struct stat *state = malloc(sizeof(struct stat));
 
-	pipe = clean_up(pipe);
+	clean_up(&pipe);
 	list = _strtok(pipe, "\n");
 	free(pipe);
-	pa = _getenv("PATH", &env, &path);
-	if (pa[0] == '\0')
-	{	return (0);
-	}
-	paths = _strtok(pa, ":");
+	_getenv("PATH", &env, &path);
+	paths = _strtok(path, ":");
 	while (list[pos] != NULL)
 	{	line_head = list[pos];
 		while (list[pos][argc] != '\0')
@@ -35,19 +32,19 @@ int runfromout(char **argv, line_t *env, char *pipe)
 		args = _strtok(line_head, " \n\t");
 		st = check_paths(paths, args, &env, &status);
 		if (st == -1)
-		{	_printf(argv[0]);
-			_printf(": ");
+		{	_printf(argv[0]), _printf(": ");
 			print_dec(hits);
-			_printf(": ");
-			_printf(args[0]);
-			_printf(": not found\n");
+			_printf(": "), _printf(args[0]), _printf(": not found\n");
 		}
-		hits++;
-		pos++;
+		free_args(args);
+		hits++, pos++;
 	}
 	(void) args, (void) line_head, (void) state;
 	free_args(list);
-	return (status);
+	if (status)
+		return (status);
+	else
+		return (0);
 }
 /**
  *clean_pipe - main for the concha process
@@ -72,20 +69,21 @@ void clean_pipe(char *p)
  */
 int main(int argc, char **argv, char **envp)
 {
-	char *pipe = malloc(1024);
-	char *pa, *path = malloc(200);
+	char *pipe = malloc(1024), *pa, *p = malloc(200);
 	int pipstat, promptstat;
 	line_t *env;
 
 	(void) argc;
 	(void) argv;
 	env = get_env_list(envp);
-	pa = _getenv("PATH", &env, &path);
+	pa = _getenv("PATH", &env, &p);
 	if (string_len(pa) == 0)
 	{
 		/*_printf("empty PATH\n");*/
+		free(p);
 		exit(0);
 	}
+	free(p);
 	clean_pipe(pipe);
 	if (!isatty(STDIN_FILENO))
 	{
@@ -96,6 +94,7 @@ int main(int argc, char **argv, char **envp)
 			return (runfromout(argv, env, pipe));
 		}
 	}
+	free(pipe);
 	promptstat = prompt_loop(argv, &env);
 	(void) promptstat;
 	(void) env;

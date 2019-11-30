@@ -9,12 +9,14 @@ line_t *add_node(char *s, line_t **head);
  *Return: the cleaned line
  */
 
-char *clean_up(char *line)
+char *clean_up(char **line)
 {
-	char *l = line;
+	char *l = *line;
 	int pos = 0, cl_pos = 0;
-	char *cleaned = malloc(1024);
+	char *cleaned = malloc(sizeof(char) * 1024);
 
+	if (cleaned == NULL)
+		_printf("Cleaned is NULL\n");
 	while (l[pos] != '\0')
 	{
 		if (l[pos] == ' ' && l[pos + 1] == ' ')
@@ -28,9 +30,10 @@ char *clean_up(char *line)
 		}
 		pos++;
 	}
-	cleaned[cl_pos + 1] = '\0';
-	free(line);
-	return (cleaned);
+	cleaned[cl_pos] = '\0';
+	free(*line);
+	*line = cleaned;
+	return (*line);
 }
 /**
  *check_token - check if the char is equal to any of the tokens
@@ -86,7 +89,7 @@ size_t _get_list_len(char *line, char *token)
  */
 char **_strtok(char *line, char *token)
 {
-	char buff[100];
+	char *buff = malloc(100);
 	size_t cont = 0, lc = 0, argc = 0;
 	char **args;
 	int end = 0;
@@ -136,6 +139,7 @@ char **_strtok(char *line, char *token)
 		}
 		lc++;
 	}
+	free(buff);
 	args[argc] = NULL;
 	return (args);
 }
