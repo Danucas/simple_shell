@@ -114,6 +114,7 @@ int parse_and_run(char *arg, line_t **envp, int hits, int *exit_stat)
 
 	line = malloc(sizeof(char) * 1024);
 	path = malloc(sizeof(char) * 1024);
+	path[0] = '\0';
 	cch = _getline(&line);
 	if ((int) cch == -1)
 	{
@@ -127,22 +128,25 @@ int parse_and_run(char *arg, line_t **envp, int hits, int *exit_stat)
 			free(line), free(path);
 			return (0);
 		}
+		_getenv("PATH", envp, &path);
+		paths = _strtok(path, ":");
 		list = _strtok(line, " \n\t");
 		if (list[0] != NULL)
-		{	paths = _strtok(_getenv("PATH", envp, &path), ":");
+		{
 			ret = check_paths(paths, list, envp, exit_stat);
 			if (ret == -1)
 			{
 				_printf(arg), _printf(": ");
 				print_dec(hits);
 				_printf(": "), _printf(list[0]), _printf(": not found\n");
+				ret = *exit_stat;
 			}
 		}
-		free_args(list), free_args(paths);
+		free_args(list);
+		free_args(paths);
 	}
 	free(line), free(path);
 	fflush(stdin);
-	if (ret > 0)
-		*exit_stat = ret;
+/*	printf("parse and run Return value: %d\nstatus: %d\n", ret, *exit_stat);*/
 	return (ret);
 }

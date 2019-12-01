@@ -1,3 +1,12 @@
 #!/bin/bash
 ./init
-valgrind --leak-check=full --track-origins=yes --error-exitcode=1 ./hsh
+echo -e "\e[0m"
+
+OLDPATH=$PATH
+unset PATH
+
+/usr/bin/valgrind --leak-check=full --track-origins=yes --error-exitcode=1 ./hsh
+
+/bin/sh
+
+export PATH=$OLDPATH

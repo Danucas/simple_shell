@@ -14,13 +14,13 @@ int runfromout(char **argv, line_t *env, char *pipe)
 	struct stat *state = malloc(sizeof(struct stat));
 
 	clean_up(&pipe);
+	list = _strtok(pipe, "\n");
 	if (pipe[0] == '\0')
 	{
 		free(path);
 		free(pipe);
 		return (0);
 	}
-	list = _strtok(pipe, "\n");
 	pos = 0;
 	free(pipe);
 	_getenv("PATH", &env, &path);

@@ -12,7 +12,7 @@ void str_cpy(char *from, char *to)
 	if (from == NULL)
 	{
 		printf("Unable to copy the string %s\n", (!from) ? "from" : "to");
-	if (from == NULL || to == NULL)
+	if (to == NULL)
 	{
 		printf("Unable to copy the string %s\n", (!from) ? "from" : "to");
 		return;

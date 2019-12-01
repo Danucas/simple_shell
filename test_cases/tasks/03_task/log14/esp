@@ -6,6 +6,7 @@ fail
 hbtn_ls
 hsh
 init
+init~
 print_res
 success
 tasks
@@ -13,3 +14,4 @@ te
 tmpfile
 tmp_file
 val
+val~

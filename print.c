@@ -1,5 +1,24 @@
 #include "shell_libs.h"
+/**
+ *printpipe - Prints commands list.
+ *@line: list to print
+ */
+void printpipe(char *line)
+{
+	int pos = 0;
 
+	while (line[pos] != '\0')
+	{
+		if (line[pos] == '\n')
+			_printf("||");
+		fflush(stdout);
+		printf("%c", line[pos]);
+		fflush(stdout);
+		pos++;
+	}
+	printf("||\n");
+
+}
 /**
  *printl - Prints commands list.
  *@list: list to print
@@ -46,7 +65,9 @@ int print_arr(char **args)
 	while (args[pos] != NULL)
 	{
 		_printf(args[pos]);
+		fflush(stdout);
 		_printf("||\n");
+		fflush(stdout);
 		pos++;
 	}
 	return (pos);

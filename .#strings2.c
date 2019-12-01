@@ -1,1 +1,0 @@
-dan@dan-HP-Pavilion-dv6000-RG374UA-ABA.4746:1575131086

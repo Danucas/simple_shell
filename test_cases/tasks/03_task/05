@@ -6,8 +6,9 @@ command="/bin/ls -l
   /bin/ls      -l                                                            /tmp  "
 
 touch tmpfile
-
-echo -e "cheking input:\n${command}\n"
+echo -e "cheking input:\n\e[47;30m"
+echo -e "$command"
+echo -en "\e[0m"
 
 echo "$command" | sh > "tasks/03_task/log${1}/esp" 2> "tasks/03_task/log${1}/esp_error"
 excod1=$?

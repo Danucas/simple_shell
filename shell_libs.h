@@ -35,7 +35,7 @@ int print_arr(char **args);
 int _printf(char *string);
 int print_dec(int n);
 int _put(int c);
-
+void printpipe(char *line);
 /*Environment process*/
 char *_getenv(char *var, line_t **envp, char **str);
 int _setenv(char *var, line_t **envp, char *value);

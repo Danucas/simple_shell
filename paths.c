@@ -1,5 +1,20 @@
 #include "shell_libs.h"
 /**
+ *def_path - check all paths
+ *Return: default path pointer
+ */
+char *def_path()
+{
+	char *path = malloc(200);
+
+	path[0] = '\0';
+	str_concat(path, "/usr/local/sbin:/usr/local/bin");
+	str_concat(path, ":/usr/sbin:");
+	str_concat(path, "/usr/bin:/sbin:/bin");
+	return (path);
+}
+
+/**
  *check_paths - check all paths
  *@paths: check the stat of the command in each path
  *@args: arguments
@@ -9,14 +24,11 @@
  */
 int check_paths(char **paths, char **args, line_t **envp, int *ex_st)
 {
-	char *copy;
-	int i = 0;
-	char *command;
-	int runstatus = -1;
+	char *copy, *tmp_path, *command;
+	int i = 0, runstatus = -1;
 	struct stat *state = malloc(sizeof(struct stat));
 
-	command = malloc(sizeof(char) * 100);
-	copy = malloc(sizeof(char) * 100);
+	command = malloc(100), copy = malloc(100);
 	str_cpy(args[0], command);
 	i = check_builtin(command, args, envp, ex_st);
 	if (i >= 0)
@@ -31,10 +43,14 @@ int check_paths(char **paths, char **args, line_t **envp, int *ex_st)
 	}
 	free(args[0]);
 	i = 0;
-	while (paths[i] != NULL && runstatus != 0)
+	if (paths == NULL && runstatus != 0)
+	{	tmp_path = def_path();
+		paths = _strtok(tmp_path, ":");
+		free(tmp_path);
+	}
+	while (paths[i] != NULL && runstatus != 0 && paths != NULL)
 	{       str_cpy(paths[i], copy);
-		str_concat(copy, "/");
-		str_concat(copy, command);
+		str_concat(copy, "/"), str_concat(copy, command);
 		args[0] = copy;
 		runstatus = stat(copy, state);
 		if (runstatus == 0)
@@ -45,6 +61,7 @@ int check_paths(char **paths, char **args, line_t **envp, int *ex_st)
 	}
 	args[0] = str_dup(command);
 	free(command), free(state), free(copy);
+	free_args(paths);
 	return (runstatus);
 }
 /**

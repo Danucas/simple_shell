@@ -7,15 +7,18 @@ void free_args(char **args)
 {
 	int counter = 0;
 
-	while (args[counter] != NULL)
+	if (args != NULL)
 	{
-		if (string_cmp("(nil)", args[counter]) != 5)
+		while (args[counter] != NULL)
 		{
-			free(args[counter]);
+			if (string_cmp("(nil)", args[counter]) != 5)
+			{
+				free(args[counter]);
+			}
+			counter++;
 		}
-		counter++;
+		free(args);
 	}
-	free(args);
 }
 /**
  *free_two - free arguments list

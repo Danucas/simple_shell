@@ -1,32 +1,46 @@
-total 104
--rwxrwxr-x 1 vagrant vagrant   488 Nov 30 21:00 check_differences
--rwxrwxr-x 1 vagrant vagrant     3 Nov 30 21:00 #check_differencesclear#
--rwxrwxr-x 1 vagrant vagrant    37 Nov 30 21:00 clear
--rwxrwxr-x 1 vagrant vagrant 26532 Nov 30 21:00 concha
--rwxrwxr-x 1 vagrant vagrant    50 Nov 30 21:00 fail
--rwxrwxr-x 1 vagrant vagrant 28695 Nov 30 22:23 hsh
--rwxrwxr-x 1 vagrant vagrant   322 Nov 30 21:00 init
--rwxrwxr-x 1 vagrant vagrant   131 Nov 30 21:00 print_res
--rwxrwxr-x 1 vagrant vagrant    50 Nov 30 21:00 success
-drwxrwxr-x 3 vagrant vagrant  4096 Nov 30 21:00 tasks
--rwxrwxr-x 1 vagrant vagrant    94 Nov 30 21:00 te
--rwxrwxr-x 1 vagrant vagrant     0 Nov 30 22:23 tmpfile
--rwxrwxr-x 1 vagrant vagrant    17 Nov 30 22:21 tmp_file
--rwxrwxr-x 1 vagrant vagrant    82 Nov 30 21:00 val
-total 104
--rwxrwxr-x 1 vagrant vagrant   488 Nov 30 21:00 check_differences
--rwxrwxr-x 1 vagrant vagrant     3 Nov 30 21:00 #check_differencesclear#
--rwxrwxr-x 1 vagrant vagrant    37 Nov 30 21:00 clear
--rwxrwxr-x 1 vagrant vagrant 26532 Nov 30 21:00 concha
--rwxrwxr-x 1 vagrant vagrant    50 Nov 30 21:00 fail
--rwxrwxr-x 1 vagrant vagrant 28695 Nov 30 22:23 hsh
--rwxrwxr-x 1 vagrant vagrant   322 Nov 30 21:00 init
--rwxrwxr-x 1 vagrant vagrant   131 Nov 30 21:00 print_res
--rwxrwxr-x 1 vagrant vagrant    50 Nov 30 21:00 success
-drwxrwxr-x 3 vagrant vagrant  4096 Nov 30 21:00 tasks
--rwxrwxr-x 1 vagrant vagrant    94 Nov 30 21:00 te
--rwxrwxr-x 1 vagrant vagrant     0 Nov 30 22:23 tmpfile
--rwxrwxr-x 1 vagrant vagrant    17 Nov 30 22:21 tmp_file
--rwxrwxr-x 1 vagrant vagrant    82 Nov 30 21:00 val
-total 0
-total 0
+total 108
+-rwxr-xr-x 1 dan dan   488 nov 28 23:36 check_differences
+-rwxr-xr-x 1 dan dan     3 nov 28 22:58 #check_differencesclear#
+-rwxr-xr-x 1 dan dan    37 nov 28 21:20 clear
+-rwxr-xr-x 1 dan dan 26532 nov 28 21:27 concha
+-rwxr-xr-x 1 dan dan    50 nov 28 22:52 fail
+-rwxrwxr-x 1 dan dan 26712 dic  1 11:47 hsh
+-rwxr-xr-x 1 dan dan   210 dic  1 11:08 init
+-rwxr-xr-x 1 dan dan   323 dic  1 11:06 init~
+-rwxr-xr-x 1 dan dan   131 nov 27 20:22 print_res
+-rwxr-xr-x 1 dan dan    50 nov 28 22:04 success
+drwxr-xr-x 3 dan dan  4096 nov 28 21:58 tasks
+-rwxr-xr-x 1 dan dan   101 nov 30 21:42 te
+-rwxr-xr-x 1 dan dan     0 dic  1 11:47 tmpfile
+-rwxrwxr-x 1 dan dan   324 nov 30 23:58 tmp_file
+-rwxrwxr-x 1 dan dan   165 dic  1 11:08 val
+-rwxrwxr-x 1 dan dan   167 dic  1 11:07 val~
+total 108
+-rwxr-xr-x 1 dan dan   488 nov 28 23:36 check_differences
+-rwxr-xr-x 1 dan dan     3 nov 28 22:58 #check_differencesclear#
+-rwxr-xr-x 1 dan dan    37 nov 28 21:20 clear
+-rwxr-xr-x 1 dan dan 26532 nov 28 21:27 concha
+-rwxr-xr-x 1 dan dan    50 nov 28 22:52 fail
+-rwxrwxr-x 1 dan dan 26712 dic  1 11:47 hsh
+-rwxr-xr-x 1 dan dan   210 dic  1 11:08 init
+-rwxr-xr-x 1 dan dan   323 dic  1 11:06 init~
+-rwxr-xr-x 1 dan dan   131 nov 27 20:22 print_res
+-rwxr-xr-x 1 dan dan    50 nov 28 22:04 success
+drwxr-xr-x 3 dan dan  4096 nov 28 21:58 tasks
+-rwxr-xr-x 1 dan dan   101 nov 30 21:42 te
+-rwxr-xr-x 1 dan dan     0 dic  1 11:47 tmpfile
+-rwxrwxr-x 1 dan dan   324 nov 30 23:58 tmp_file
+-rwxrwxr-x 1 dan dan   165 dic  1 11:08 val
+-rwxrwxr-x 1 dan dan   167 dic  1 11:07 val~
+total 12
+-rw------- 1 dan  dan     0 dic  1 10:45 config-err-REp6KH
+drwx------ 3 root root 4096 dic  1 10:44 systemd-private-ba0fdf35a21d440e904b759352387af1-colord.service-XNv2Hd
+drwx------ 3 root root 4096 dic  1 10:44 systemd-private-ba0fdf35a21d440e904b759352387af1-rtkit-daemon.service-3Ks2yt
+drwx------ 3 root root 4096 dic  1 10:44 systemd-private-ba0fdf35a21d440e904b759352387af1-systemd-timesyncd.service-9OSwvU
+-rw-rw-r-- 1 dan  dan     0 dic  1 10:45 unity_support_test.0
+total 12
+-rw------- 1 dan  dan     0 dic  1 10:45 config-err-REp6KH
+drwx------ 3 root root 4096 dic  1 10:44 systemd-private-ba0fdf35a21d440e904b759352387af1-colord.service-XNv2Hd
+drwx------ 3 root root 4096 dic  1 10:44 systemd-private-ba0fdf35a21d440e904b759352387af1-rtkit-daemon.service-3Ks2yt
+drwx------ 3 root root 4096 dic  1 10:44 systemd-private-ba0fdf35a21d440e904b759352387af1-systemd-timesyncd.service-9OSwvU
+-rw-rw-r-- 1 dan  dan     0 dic  1 10:45 unity_support_test.0

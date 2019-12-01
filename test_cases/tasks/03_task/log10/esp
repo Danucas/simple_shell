@@ -5,6 +5,7 @@ concha
 fail
 hsh
 init
+init~
 print_res
 success
 tasks
@@ -12,6 +13,7 @@ te
 tmpfile
 tmp_file
 val
+val~
 check_differences
 #check_differencesclear#
 clear
@@ -19,6 +21,7 @@ concha
 fail
 hsh
 init
+init~
 print_res
 success
 tasks
@@ -26,6 +29,7 @@ te
 tmpfile
 tmp_file
 val
+val~
 check_differences
 #check_differencesclear#
 clear
@@ -33,6 +37,7 @@ concha
 fail
 hsh
 init
+init~
 print_res
 success
 tasks
@@ -40,6 +45,7 @@ te
 tmpfile
 tmp_file
 val
+val~
 check_differences
 #check_differencesclear#
 clear
@@ -47,6 +53,7 @@ concha
 fail
 hsh
 init
+init~
 print_res
 success
 tasks
@@ -54,3 +61,4 @@ te
 tmpfile
 tmp_file
 val
+val~

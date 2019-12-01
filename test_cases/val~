@@ -1,0 +1,10 @@
+#!/bin/bash
+./init
+echo -e "\e[0m"
+
+OLDPATH=$PATH
+unset PATH
+
+/usr/local/valgrind --leak-check=full --track-origins=yes --error-exitcode=1 ./hsh
+
+export PATH=$OLDPATH
